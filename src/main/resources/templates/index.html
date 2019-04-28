@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/admin.css">
+    <link rel="stylesheet" href="../layui/css/view.css">
+    <link rel="stylesheet" href="../layui/css/style.css">
+    <title>BeatingPicture</title>
+    <style>
+        .roleBtn {
+            position: absolute;
+            bottom: 0px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header custom-header">
+
+        <ul class="layui-nav ">
+            <!--<li class="layui-nav-item" lay-unselect>-->
+            <!--<a href="javascript:;" id="createRole" class="">创建角色</a>-->
+            <!--</li>-->
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" id="cardShop">卡片商城</a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" id="getCards" class="">查看拥有卡片</a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" id="boosPK" class="">BOOS挑战</a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" class="">抽奖</a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" class="">斗图挑战赛</a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" class="">玩家竞技场</a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" id="uploadPicture">上传卡片得元宝</a>
+            </li>
+        </ul>
+
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="" id="notice"><i class="layui-icon" style="color: #FF5722">&#xe63a;</i> 游戏公告</a>
+            </li>
+            <li class="layui-nav-item">
+                <input type="hidden" id="userId">
+                <a id="userName" href="javascript:;">Admin</a>
+                <dl class="layui-nav-child">
+                    <dd><a id="signIn" href="javascript:;">签到</a></dd>
+                    <dd><a href="/doLogout">退出</a></dd>
+                </dl>
+            </li>
+
+        </ul>
+    </div>
+
+    <!--<div class="layui-side custom-admin">-->
+    <!--<div class="layui-side-scroll">-->
+
+
+    <!--<ul id="Nav" class="layui-nav layui-nav-tree">-->
+    <!--<li class="layui-nav-item">-->
+    <!--<a href="javascript:;">-->
+    <!--<i class="layui-icon">&#xe609;</i>-->
+    <!--<em>主页</em>-->
+    <!--</a>-->
+    <!--<dl class="layui-nav-child">-->
+    <!--<dd><a href="user/projects.html">移动模块</a></dd>-->
+    <!--<dd><a href="">后台模版</a></dd>-->
+    <!--<dd><a href="">电商平台</a></dd>-->
+    <!--</dl>-->
+    <!--</li>-->
+    <!--<li class="layui-nav-item">-->
+    <!--<a href="javascript:;">-->
+    <!--<i class="layui-icon">&#xe857;</i>-->
+    <!--<em  lay-event="createGameRole">-->
+    <!--创建角色-->
+    <!--</em>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+
+
+    <div class="layui-body">
+        <div class="layui-tab" lay-allowClose="true" lay-filter="tabs">
+            <div class="layui-row layui-col-space5">
+                <div class="layui-col-md2">
+                    <img style="width: 160px;height: 80px" src="./image/4.jpg" title="修改头像" id="roleBtn">
+                </div>
+                <div class="layui-col-md1">
+                    <p style="display: inline-block;font-size: 20px;font-weight: bold" id="uname">我是GM</p>
+                </div>
+                <div class="layui-col-md1">
+                    <p style="display: inline-block;font-size: 20px;font-weight: bold" id="rank">等级:15</p>
+                </div>
+                <div class="layui-col-md1">
+                    <a title="兑换称号" style="font-size: 16px;font-weight: bold;cursor: pointer"
+                       id="integral">积分:99999</a>
+                </div>
+                <div class="layui-col-md1">
+                    <p style="font-size: 16px;font-weight: bold" id="gold">金币:10000</p>
+                </div>
+                <div class="layui-col-md1">
+                    <p style="font-size: 16px;font-weight: bold" id="coin">元宝:999999</p>
+                </div>
+
+                <div class="layui-col-md9">
+                    <!--<p style="display: inline-block;font-size: 20px;font-weight: bold">exp:</p>-->
+                    <div class="layui-progress layui-progress-big" lay-filter="exp">
+                        <div class="layui-progress-bar layui-bg-green">exp</div>
+                    </div>
+                </div>
+                <div class="layui-col-md3">
+                    <p style="font-size: 26px;font-weight: bold" id="power">战斗力:200W</p>
+                </div>
+                <div class="layui-col-md5">
+                    <p style="font-size: 24px;font-weight: bold" id="desingation">称号:斗图宗师</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mobile-mask"></div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../layui/layui.all.js"></script>
+<script src="index.js" data-main="home"></script>
+
+<script>
+
+    $.get("user/getUserInfoByUserId", {}, function (data) {
+        console.log(data)
+        $("#uname").html(data.roleName);
+        $("#integral").html('积分:' + data.integral);
+        $("#gold").html('金币:' + data.goldMoney);
+        $("#coin").html('元宝:' + data.coin);
+        $("#power").html('战斗力:' + data.power);
+        $("#rank").html('等级:' + data.rankName);
+        $("#desingation").html('称号:' + data.designationName);
+        $("#roleBtn").attr("src", data.headImgPath)
+        var hExp = data.hexp;
+        $.post("exp/getExpByRankId", {}, function (data) {
+            var nExp = data;
+            var precent = Math.ceil((hExp / nExp) * 100)
+            //alert(precent)
+            //修改经验条
+            layui.use('element', function () {
+                element = layui.element;
+                element.progress('exp', '' + precent + '%');
+
+            });
+
+        })
+
+        $("#notice").click(function () {
+            layer.open({
+                type: 1,
+                closeBtn: 0, //不显示关闭按钮
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                content: '游戏公告'
+            });
+        });
+
+        $("#roleBtn").click(function () {
+            $.get('user/updateHeadImg.html', function (html) {
+                var index = layer.open({
+                    id: 10
+                    , type: 1
+                    , title: '修改头像'
+                    , area: ['480px', '80%']
+                    , shade: 0.5
+                    , maxmin: true
+                    , content: html
+                    , success: function () {
+
+                    }
+                });
+                $("#layerIndex").val(index);
+            });
+        });
+
+        $("#uploadPicture").click(function () {
+            $.get('uploadpicture/upload.html', function (html) {
+                var index = layer.open({
+                    id: 10
+                    , type: 1
+                    , title: '上传图片'
+                    , area: ['700px', '80%']
+                    , shade: 0.5
+                    , maxmin: true
+                    , content: html
+                    , success: function () {
+
+                    }
+                });
+                $("#layerIndex").val(index);
+            });
+        });
+
+        $("#integral").click(function () {
+            $.get('user/integral.html', function (html) {
+                var index = layer.open({
+                    id: 10
+                    , type: 1
+                    , title: '积分兑换称号'
+                    , area: ['700px', '80%']
+                    , shade: 0.5
+                    , maxmin: true
+                    , content: html
+                    , success: function () {
+                        layer.close(index)
+                    }
+                });
+                $("#layerIndex").val(index);
+            });
+        });
+
+        $("#getCards").click(function () {
+            layer.open({
+                type: 2,
+                title: '卡片信息',
+                shadeClose: true,
+                shade: 0.5,
+                area: ['880px', '90%'],
+                content: 'user/card.html' //iframe的url
+            });
+        });
+
+        $("#cardShop").click(function () {
+            layer.open({
+                type: 2,
+                title: '卡片商城',
+                shadeClose: true,
+                shade: 0.5,
+                area: ['90%', '90%'],
+                content: 'shop/shop.html' //iframe的url
+            });
+        });
+
+        var table = layui.table;
+
+
+        $("#signIn").click(function () {
+            if (data.signed == 1) {
+                $.get('user/singIn.html', function (html) {
+                    var index = layer.open({
+                        id: 10
+                        , type: 1
+                        , title: '签到'
+                        , area: ['360px', '330px']
+                        , shade: 0.5
+                        , maxmin: true
+                        , content: html
+                        , btn: ['取消']
+                        , yes: function () {
+                            layer.close(index);
+                        }
+                        , success: function () {
+
+                        }
+                    });
+                    $("#layerIndex").val(index);
+                });
+            } else {
+                layer.alert('今日已签到，明日再来', {icon: 6});
+            }
+        });
+
+
+        $("#boosPK").click(function () {
+            $.get('boos/area.html', function (html) {
+                var index = layer.open({
+                    id: 10
+                    , type: 1
+                    , title: '场景'
+                    , area: ['700px', '530px']
+                    , shade: 0.5
+                    , maxmin: true
+                    , content: html
+                    , btn: ['返回']
+                    , yes: function () {
+                        layer.close(index);
+                    }
+                    , success: function () {
+
+                    }
+                });
+                $("#layerIndex").val(index);
+            });
+        });
+
+
+    });
+
+</script>
+
+</body>
+</html>

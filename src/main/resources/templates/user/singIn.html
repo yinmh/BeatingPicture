@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="../layui/css/layui.css">
+<link rel="stylesheet" href="../layui/css/admin.css">
+<link rel="stylesheet" href="../layui/css/view.css">
+<div class="layui-content">
+    <div class="layui-btn-group" id="box">
+        <div class="layui-card-header">每周一更新签到,周一到周天天天签到就送100元宝</div>
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe608;</i>第一天</button>-->
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe650;</i>第二天</button>-->
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe67a;</i>第三天</button>-->
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe6af;</i>第四天</button>-->
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe62e;</i>第五天</button>-->
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe735;</i>第六天</button>-->
+        <!--<button class="layui-btn"><i class="layui-icon">&#xe756;</i>第七天</button>-->
+    </div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../layui/layui.all.js"></script>
+
+<script>
+    $(function () {
+        $.get("sign/getAllSign", {}, function (data) {
+             //console.log(data);
+            var items = '';
+            for (var i = 0; i < data.list.length; i++) {
+                if(data.nowDay == data.list[i].id){
+                    items += '<button label="item" class="layui-btn" data-id="' + data.list[i].id + '"><i class="layui-icon">' + data.list[i].icon + '</i>' + data.list[i].title + '</button>';
+                }else{
+                    items += '<button label="item" class="layui-btn layui-btn-disabled" disabled data-id="' + data.list[i].id + '"><i class="layui-icon">' + data.list[i].icon + '</i>' + data.list[i].title + '</button>';
+                }
+            }
+            $("#box").html(items);
+
+
+            $("[label='item']").click(function () {
+                var id = $(this).data("id");
+                $(this).addClass("layui-btn-disabled").prop("disabled",true);
+                $.post("sign/updateSigned",{flag:0},function (data) {
+
+                });
+                $.post("user/updateCoin",{id:id},function (data) {
+
+                })
+                layer.alert('签到成功，坚持是一种好习惯', {icon: 6});
+                //签到成功后页面2秒内跳转
+                function jumurl(){
+                    window.location.href = '/index';
+                }
+                setTimeout(jumurl,2000);
+            });
+
+
+        });
+
+
+    });
+</script>
+

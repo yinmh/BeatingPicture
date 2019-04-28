@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="../layui/css/layui.css">
+<link rel="stylesheet" href="../layui/css/admin.css">
+<link rel="stylesheet" href="../layui/css/view.css">
+<link rel="stylesheet" href="../layui/css/style.css"/>
+<style>
+    .card {
+        margin-left: 54px;
+        margin-top: 10px;
+        width: 500px;
+        height: 500px;
+        float: left;
+        border: 1px solid silver;
+    }
+</style>
+
+<div class="layui-content">
+    <article class="jq22-container">
+        <div class="poster-main A_Demo">
+            <div class="poster-btn poster-prev-btn"></div>
+            <ul class="poster-list">
+                <li class="poster-item"><a href="#"><img style="height:290px;width: 500px "
+                                                         src="../image/picture/21.jpg"></a></li>
+                <li class="poster-item"><a href="#"><img style="height:290px;width: 500px "
+                                                         src="../image/picture/22.jpg"></a></li>
+                <li class="poster-item"><a href="#"><img style="height:290px;width: 500px "
+                                                         src="../image/picture/23.jpg"></a></li>
+                <li class="poster-item"><a href="#"><img style="height:290px;width: 500px "
+                                                         src="../image/picture/24.jpg"></a></li>
+                <li class="poster-item"><a href="#"><img style="height:290px;width: 500px "
+                                                         src="../image/picture/25.jpg"></a></li>
+
+            </ul>
+            <div class="poster-btn poster-next-btn"></div>
+        </div>
+    </article>
+    <div class="layui-container">
+        <div class="card"><img src="../image/picture/21.jpg"></div>
+        <div class="card"><img src="../image/picture/22.jpg"></div>
+        <div class="card"><img src="../image/picture/23.jpg"></div>
+        <div class="card"><img src="../image/picture/24.jpg"></div>
+        <div class="card"><img src="../image/picture/25.jpg"></div>
+        <div class="card"><img src="../image/picture/26.jpg"></div>
+    </div>
+
+
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/PicCarousel.js"></script>
+<script src="../layui/layui.all.js"></script>
+
+<script>
+    $(function () {
+        $(".A_Demo").PicCarousel("init");
+        $(".B_Demo").PicCarousel({
+            "width": 1000,		//幻灯片的宽度
+            "height": 300,		//幻灯片的高度
+            "posterWidth": 520,	//幻灯片第一帧的宽度
+            "posterHeight": 300, //幻灯片第一张的高度
+            "scale": 0.9,		//记录显示比例关系
+            "speed": 1500,		//记录幻灯片滚动速度
+            "autoPlay": true,	//是否开启自动播放
+            "delay": 1000,		//自动播放间隔
+            "verticalAlign": "top"	//图片对齐位置
+        });
+    });
+</script>
+
