@@ -1,5 +1,6 @@
 package org.game.beatingpicture.schedule;
 
+import org.game.beatingpicture.service.RewardService;
 import org.game.beatingpicture.service.SignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +15,12 @@ public class TimerTask {
     @Autowired
     private SignService signService;
 
+    @Autowired
+    private RewardService rewardService;
+
     @Scheduled(fixedRate = 1000*60*60)//只支持单线程，每隔 1小时 执行一次
     public void updateSigned() {
         signService.updateSigned(1);
+        rewardService.updateRewarded(1);
     }
 }

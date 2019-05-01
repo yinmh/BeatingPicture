@@ -16,5 +16,6 @@ public class UserInfo {
     private long integral;
     private int designationId;
     private int signed;
+    private int rewarded;
     private long hExp;
 }

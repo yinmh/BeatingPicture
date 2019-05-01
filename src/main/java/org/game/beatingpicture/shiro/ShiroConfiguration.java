@@ -38,6 +38,8 @@ public class ShiroConfiguration {
         map.put("/logout", "logout");
         //对所有用户认证
         map.put("/user/**", "authc");
+        map.put("/", "authc");
+        map.put("/reward/**", "authc");
         map.put("/desingation/**", "authc");
         map.put("/sign/**", "authc");
         map.put("/exp/**", "authc");

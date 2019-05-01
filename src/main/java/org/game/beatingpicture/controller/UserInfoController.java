@@ -74,6 +74,7 @@ public class UserInfoController {
         userInfoVo.setId(userInfo.getId());
         userInfoVo.setSigned(userInfo.getSigned());
         userInfoVo.setHExp(userInfo.getHExp());
+        userInfoVo.setRewarded(userInfo.getRewarded());
         return ResponseEntity.ok(userInfoVo);
     }
 

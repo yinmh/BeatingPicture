@@ -10,11 +10,13 @@
         <div class="layui-upload-list">
             <table class="layui-table">
                 <thead>
-                <tr><th>文件名</th>
+                <tr>
+                    <th>文件名</th>
                     <th>大小</th>
                     <th>状态</th>
                     <th>操作</th>
-                </tr></thead>
+                </tr>
+                </thead>
                 <tbody id="demoList"></tbody>
             </table>
         </div>
@@ -26,16 +28,18 @@
 
 <script>
     $(function () {
-        layui.use('upload', function() {
+        layui.use('upload', function () {
             var $ = layui.jquery
                 , upload = layui.upload;
 
             var demoListView = $('#demoList')
                 , uploadListIns = upload.render({
                 elem: '#testList'
-                , url: '/upload/'
-                , accept: 'file'
+                , url: '/user/upload'
+                , accept: 'images'
                 , multiple: true
+                , number: 5
+                , size: 100
                 , auto: false
                 , bindAction: '#testListAction'
                 , choose: function (obj) {
@@ -68,6 +72,7 @@
                     });
                 }
                 , done: function (res, index, upload) {
+                    // console.log(res)
                     if (res.code == 0) { //上传成功
                         var tr = demoListView.find('tr#upload-' + index)
                             , tds = tr.children();

@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="../layui/css/layui.css">
+<link rel="stylesheet" href="../layui/css/admin.css">
+<link rel="stylesheet" href="../layui/css/view.css">
+<style>
+    .box {
+        width: 170px;
+        height: 170px;
+        border: 1px solid black;
+        float: left;
+        background-color: #00FF00;
+        font-size: 25px;
+        text-align: center;
+        line-height: 170px;
+    }
+
+    .red {
+        background-color: rgba(255, 252, 28, 0.44);
+    }
+
+</style>
+<div class="layui-content">
+    <div class="box red" id="0">100元宝</div>
+    <div class="box" id="1">200元宝</div>
+    <div class="box" id="2">400元宝</div>
+    <div class="box" id="7">卡片</div>
+    <div class="box" id="btn" style="cursor: pointer">抽奖</div>
+    <div class="box" id="3">500元宝</div>
+    <div class="box" id="6">100元宝</div>
+    <div class="box" id="5">谢谢参与</div>
+    <div class="box" id="4">卡片</div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../layui/layui.all.js"></script>
+
+<script>
+    $(function () {
+        var i = 0;
+        var id = 0;
+        var that = $("#0");
+        var time = parseInt(9000 * Math.random());
+        // console.log(time)
+        var u_time = 0;
+
+        function getaward() {
+            setTimeout(function () {
+                if ((time + 15000) <= u_time) {
+                    layer.alert('恭喜您获得了' + that.text());
+
+                    function jumurl() {
+                        window.location.href = '/index';
+                    }
+
+                    setTimeout(jumurl, 1300);
+                } else {
+                    getaward();
+                }
+            }, 100);
+            u_time += 1000;
+            id = i % 8;
+            that.removeClass("red");
+            $("#" + id).addClass("red");
+            that = $("#" + id);
+            i++;
+        }
+
+        $("#btn").click(function () {
+            getaward();
+            $.post("reward/updateRewarded", {flag: 0}, function (data) {
+
+            })
+        });
+
+
+    });
+</script>
+

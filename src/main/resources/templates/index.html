@@ -35,7 +35,7 @@
                 <a href="javascript:;" id="boosPK" class="">BOOS挑战</a>
             </li>
             <li class="layui-nav-item" lay-unselect>
-                <a href="javascript:;" class="">抽奖</a>
+                <a href="javascript:;" id="getAward">抽奖</a>
             </li>
             <li class="layui-nav-item" lay-unselect>
                 <a href="javascript:;" class="">斗图挑战赛</a>
@@ -51,7 +51,7 @@
 
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="" id="notice"><i class="layui-icon" style="color: #FF5722">&#xe63a;</i> 游戏公告</a>
+                <a href="javascript:;" id="notice"><i class="layui-icon" style="color: #FF5722">&#xe63a;</i> 游戏公告</a>
             </li>
             <li class="layui-nav-item">
                 <input type="hidden" id="userId">
@@ -92,8 +92,6 @@
     <!--</ul>-->
     <!--</div>-->
     <!--</div>-->
-
-
     <div class="layui-body">
         <div class="layui-tab" lay-allowClose="true" lay-filter="tabs">
             <div class="layui-row layui-col-space5">
@@ -131,9 +129,12 @@
                 </div>
             </div>
         </div>
+        <button id="play" class="layui-btn layui-btn-blue" style="position: absolute;bottom: 0;left: 0;">
+            排兵布阵
+        </button>
     </div>
 </div>
-<div class="mobile-mask"></div>
+
 </div>
 <script src="../js/jquery.min.js"></script>
 <script src="../layui/layui.all.js"></script>
@@ -163,15 +164,37 @@
 
             });
 
-        })
+        });
+
+        if (data.rewarded == 0) {
+            $("#getAward").css("display", "none");
+        }
 
         $("#notice").click(function () {
             layer.open({
-                type: 1,
-                closeBtn: 0, //不显示关闭按钮
-                anim: 2,
-                shadeClose: true, //开启遮罩关闭
-                content: '游戏公告'
+                type: 2,
+                title: '游戏公告',
+                shadeClose: true,
+                shade: 0.5,
+                area: ['300px', '50%'],
+                content: 'notice/notice.html' //iframe的url
+            });
+        });
+
+        $("#getAward").click(function () {
+            $.get('getaward/getaward.html', function (html) {
+                var index = layer.open({
+                    id: 10
+                    , type: 1
+                    , title: '抽奖界面'
+                    , area: ['578px', '85%']
+                    , shade: 0.75
+                    , maxmin: true
+                    , content: html
+                    , success: function () {
+                    }
+                });
+                $("#layerIndex").val(index);
             });
         });
 

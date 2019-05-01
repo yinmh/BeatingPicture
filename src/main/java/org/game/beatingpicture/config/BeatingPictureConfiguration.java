@@ -4,10 +4,14 @@ import org.game.beatingpicture.intercepter.UserInfoIntercepter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class BeatingPictureConfiguration implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    }
 
     //配置拦截器
     public void addInterceptors(InterceptorRegistry registry){
