@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2019-04-28 13:27:31
+Date: 2019-05-01 22:51:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -251,6 +251,23 @@ INSERT INTO `sign` VALUES ('5', '星期五', '100', '&#xe62e;');
 INSERT INTO `sign` VALUES ('6', '星期六', '100', '&#xe735;');
 
 -- ----------------------------
+-- Table structure for upload_picture
+-- ----------------------------
+DROP TABLE IF EXISTS `upload_picture`;
+CREATE TABLE `upload_picture` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `picture_name` varchar(255) DEFAULT NULL,
+  `upload_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of upload_picture
+-- ----------------------------
+INSERT INTO `upload_picture` VALUES ('11', '14', 'AC48904E0F77F8B72D78A452D4560C0D.jpg', '2019-05-01 21:44:51');
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -286,13 +303,14 @@ CREATE TABLE `user_info` (
   `role_name` varchar(255) DEFAULT NULL,
   `signed` int(11) DEFAULT NULL,
   `h_exp` bigint(20) DEFAULT '0',
+  `rewarded` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('14', '2', '100599', '6666666', '7', '1', '5', '999999', '61899', '男', 'ADMIN', '1', '400');
+INSERT INTO `user_info` VALUES ('14', '3', '101699', '6666666', '5', '2', '5', '999999', '44299', '男', 'ADMIN', '0', '400', '0');
 
 -- ----------------------------
 -- Table structure for user_picture
