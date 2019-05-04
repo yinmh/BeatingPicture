@@ -51,6 +51,9 @@
 
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
+                <a ew-event="message" title="消息"><i class="layui-icon layui-icon-notice"></i></a>
+            </li>
+            <li class="layui-nav-item">
                 <a href="javascript:;" id="notice"><i class="layui-icon" style="color: #FF5722">&#xe63a;</i> 游戏公告</a>
             </li>
             <li class="layui-nav-item">
@@ -131,6 +134,10 @@
         </div>
         <button id="play" class="layui-btn layui-btn-blue" style="position: absolute;bottom: 0;left: 0;">
             排兵布阵
+        </button>
+
+        <button id="rankList" class="layui-btn layui-btn-warm" style="position: absolute;bottom: 0;left: 100px;">
+            排行榜
         </button>
     </div>
 </div>
@@ -213,6 +220,17 @@
                     }
                 });
                 $("#layerIndex").val(index);
+            });
+        });
+
+        $("#play").click(function () {
+            layer.open({
+                type: 2,
+                title: '上阵卡片',
+                shadeClose: true,
+                shade: 0.5,
+                area: ['90%', '90%'],
+                content: 'user/user.html' //iframe的url
             });
         });
 

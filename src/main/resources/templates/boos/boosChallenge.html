@@ -3,12 +3,63 @@
 <link rel="stylesheet" href="../layui/css/view.css">
 
 <div class="layui-content">
-</div>
-<script src="../js/jquery.min.js"></script>
-<script src="../layui/layui.all.js"></script>
+    我
+    <div data-type="loading" class="layui-progress layui-progress-big" lay-filter="user" lay-showPercent="true">
+        <div class="site-demo-active layui-progress-bar layui-bg-green" lay-percent="100%">user</div>
+    </div>
 
+    boss
+    <div id="boss" class="layui-progress layui-progress-big" lay-filter="boss" lay-showPercent="true">
+        <div class="layui-progress-bar layui-bg-green" lay-percent="100%">boss</div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../layui/layui.all.js"></script>
+</div>
 <script>
     $(function () {
+        layui.use('element', function () {
+            var boos_blood = 50000;
+            var user_blood = 50000;
+            var u_precent = 100;
+            var b_precent = 100;
+            element = layui.element;
+
+
+            timer = setInterval(function () {
+                if (boos_blood <= 0) {
+                    $("#boss").css("display", "none");
+                    clearInterval(timer);
+                    alert("挑战成功");
+                }
+                if (user_blood <= 0) {
+                    clearInterval(timer);
+                    alert("挑战失败");
+                }
+                var u_beat = parseInt(8000 * Math.random());
+                // console.log("boos掉血 :" + u_beat);
+                var b_beat = parseInt(800 * Math.random());
+                // console.log("玩家掉血 :" + b_beat);
+                boos_blood = boos_blood - u_beat;
+                user_blood = user_blood - b_beat;
+                u_precent = Math.ceil((user_blood / 50000) * 100);
+                b_precent = Math.ceil((boos_blood / 50000) * 100);
+                // console.log("u_precent:" + u_precent);
+                // console.log("b_precent:" + b_precent);
+                if (u_precent <= 0 && b_precent > 0) {
+                    element.progress('user', 0 + '%');
+                    element.progress('boss', b_precent + '%');
+                } else if (b_precent <= 0 && u_precent > 0) {
+                    element.progress('user', u_precent + '%');
+                    element.progress('boss', 0 + '%');
+                } else {
+                    element.progress('user', u_precent + '%');
+                    element.progress('boss', b_precent + '%');
+                }
+                // console.log("user_blood :" + user_blood);
+                // console.log("boos_blood :" + boos_blood);
+            }, 500);
+        });
     });
 </script>
 

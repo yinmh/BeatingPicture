@@ -19,11 +19,12 @@ public class RegistController {
 
     @RequestMapping("/toregist")
     public String toregist(){
-        return "user/registion";
+        return "registion";
     }
 
     @PostMapping("/registuser")
     public void registUser(User user){
+        //todo
         user.setPassword(PasswordHash.createHash(user.getPassword()));
         userService.registUser(user);
     }

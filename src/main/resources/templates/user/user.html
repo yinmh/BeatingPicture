@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="../layui/css/layui.css">
+<link rel="stylesheet" href="../layui/css/admin.css">
+<link rel="stylesheet" href="../layui/css/view.css">
+<style>
+    .cardItem {
+        height: 120px;
+        width: 120px;
+        margin: 5px;
+    }
+
+    .btn {
+        height: 25px;
+        width: 35px;
+        font-size: 10px;
+        background-color: rgba(255, 0, 0, 0.51);
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        left: 45px;
+        bottom: 50px;
+    }
+
+    .box {
+        float: left;
+        position: relative;
+        width: 265px;
+        height: 200px;
+    }
+</style>
+<div class="layui-content">
+    <div class="site-demo-flow" id="LAY_demo3">
+        <div>
+            <h1>角色信息</h1>
+            <h2>血量</h2>
+            <h2>攻击</h2>
+            <h2>防御</h2>
+            <h2>暴击</h2>
+            <h2>闪避</h2>
+        </div>
+
+        <div class="layui-row">
+            <div class="box"><img class="cardItem" src="../image/4.jpg">
+                <button class="btn">上阵</button>
+            </div>
+
+            <div class="box"><img class="cardItem" src="../image/4.jpg">
+                <button class="btn">上阵</button>
+            </div>
+
+            <div class="box"><img class="cardItem" src="../image/4.jpg">
+                <button class="btn">上阵</button>
+            </div>
+
+            <div class="box"><img class="cardItem" src="../image/4.jpg">
+                <button class="btn">上阵</button>
+            </div>
+
+            <div class="box"><img class="cardItem" src="../image/4.jpg">
+                <button class="btn">上阵</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../layui/layui.all.js"></script>
+
+<script>
+    layui.use('flow', function () {
+        var flow = layui.flow;
+
+        //按屏加载图片
+        flow.lazyimg({
+            elem: '#LAY_demo3 img'
+            , scrollElem: '#LAY_demo3' //一般不用设置，此处只是演示需要。
+        });
+
+    });
+</script>
+

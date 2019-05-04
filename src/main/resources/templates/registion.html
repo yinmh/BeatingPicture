@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/login.css">
+    <title>注册页面</title>
+</head>
+
+<body class="login-wrap">
+<div class="login-container">
+    <form  class="login-form" method="post" style="height: 499px;width: 400px">
+        <h1 style="margin-top: -10px">用户注册</h1>
+        <div class="input-group">
+            用户名：
+            <input type="text" id="username" name="username" class="input-field">
+        </div>
+        <div class="input-group">
+            密码：
+            <input type="password" id="password" name="password"  class="input-field">
+        </div>
+        <div class="input-group">
+            确认密码：
+            <input style="background-color: rgba(255,0,0,0.09)" type="password" id="passwordConfirm" name="passwordConfirm" class="input-field">
+        </div>
+        <div class="input-group">
+            手机：
+            <input style="background-color: rgba(255,252,28,0.09)" type="text" id="phone" name="phone" class="input-field">
+        </div>
+        <button type="button" class="login-button">注册<i class="ai ai-enter"></i></button>
+    </form>
+</div>
+
+
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="index.js" data-main="login"></script>
+</html>

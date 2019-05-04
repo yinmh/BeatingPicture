@@ -10,10 +10,29 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2019-05-01 22:51:48
+Date: 2019-05-04 11:21:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for boos
+-- ----------------------------
+DROP TABLE IF EXISTS `boos`;
+CREATE TABLE `boos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area_id` int(11) DEFAULT NULL,
+  `blood` bigint(20) DEFAULT NULL,
+  `attack` int(11) DEFAULT NULL,
+  `g_exp` bigint(20) DEFAULT NULL,
+  `coin` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of boos
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for category
@@ -293,7 +312,7 @@ CREATE TABLE `user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `head_img_id` int(11) NOT NULL,
   `coin` bigint(20) DEFAULT '0',
-  `power` int(11) DEFAULT '2000',
+  `power` int(11) DEFAULT '3000',
   `designation_id` int(11) DEFAULT '1',
   `rank_id` int(11) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
@@ -304,13 +323,17 @@ CREATE TABLE `user_info` (
   `signed` int(11) DEFAULT NULL,
   `h_exp` bigint(20) DEFAULT '0',
   `rewarded` int(11) DEFAULT '1',
+  `attack` int(11) DEFAULT NULL,
+  `defense` int(11) DEFAULT NULL,
+  `hit` int(11) DEFAULT NULL,
+  `miss` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('14', '3', '101699', '6666666', '5', '2', '5', '999999', '44299', '男', 'ADMIN', '0', '400', '0');
+INSERT INTO `user_info` VALUES ('14', '3', '101799', '6666666', '5', '2', '5', '999999', '44299', '男', 'ADMIN', '1', '400', '1', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user_picture
