@@ -17,13 +17,21 @@
         cursor: pointer;
         position: absolute;
         left: 45px;
-        bottom: 50px;
+        bottom: 45px;
+    }
+
+    .ulBox {
+        position: relative;
+        width: 130px;
+        height: 200px;
+        top: -90px;
+        left: 130px;
     }
 
     .box {
         float: left;
         position: relative;
-        width: 265px;
+        width: 262px;
         height: 200px;
     }
 </style>
@@ -38,24 +46,68 @@
             <h2>闪避</h2>
         </div>
 
-        <div class="layui-row">
-            <div class="box"><img class="cardItem" src="../image/4.jpg">
-                <button class="btn">上阵</button>
-            </div>
+        <div id="play" class="layui-row" style="margin-top: 20px;border: 2px solid yellow">
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">休息</button>-->
+            <!--</div>-->
 
-            <div class="box"><img class="cardItem" src="../image/4.jpg">
-                <button class="btn">上阵</button>
-            </div>
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">休息</button>-->
+            <!--</div>-->
 
-            <div class="box"><img class="cardItem" src="../image/4.jpg">
-                <button class="btn">上阵</button>
-            </div>
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">休息</button>-->
+            <!--</div>-->
 
-            <div class="box"><img class="cardItem" src="../image/4.jpg">
-                <button class="btn">上阵</button>
-            </div>
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">休息</button>-->
+            <!--</div>-->
 
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">休息</button>-->
+            <!--</div>-->
+        </div>
+
+        <div id="unPlay" class="layui-row" style="margin-top: 10px;border: 2px solid red">
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
+
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+            <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
             <div class="box"><img class="cardItem" src="../image/4.jpg">
+                <ul class="ulBox">
+                    <li>名称：sss</li>
+                    <li>攻击：1000</li>
+                </ul>
                 <button class="btn">上阵</button>
             </div>
 
@@ -67,15 +119,65 @@
 <script src="../layui/layui.all.js"></script>
 
 <script>
-    layui.use('flow', function () {
-        var flow = layui.flow;
+    $(function () {
+        layui.use('flow', function () {
+            var flow = layui.flow;
 
-        //按屏加载图片
-        flow.lazyimg({
-            elem: '#LAY_demo3 img'
-            , scrollElem: '#LAY_demo3' //一般不用设置，此处只是演示需要。
+            //按屏加载图片
+            flow.lazyimg({
+                elem: '#LAY_demo3 img'
+                , scrollElem: '#LAY_demo3' //一般不用设置，此处只是演示需要。
+            });
+        });
+        var divBox = '<h1 style="text-align:  center">拥有卡片</h1>';
+        $.get("/picture/getAllPictureByUserInfoId", {}, function (data) {
+            var length = data.count;
+            for (var i = 0; i < data.list.length; i++) {
+                divBox += '<div class="box"><img class="cardItem" src="\.' + data.list[i].picturePath + '">;'
+                divBox += '<ul class="ulBox">';
+                divBox += '<li>名称：' + data.list[i].pictureName + '</li>';
+                divBox += '<li>攻击：' + data.list[i].harm + '</li>';
+                divBox += '</ul>';
+                divBox += '<button data-id="' + data.list[i].id + '" label="btnPlay" class="btn">上阵</button>';
+                divBox += '</div>';
+            }
+            $("#unPlay").html(divBox);
+            $("[label='btnPlay']").click(function () {
+                var id = $(this).data("id");
+                if (length < 5) {
+                    $.post("/picture/updatePictureStatus", {flag: 1, id: id}, function (data) {
+                        window.location.href = "/user/user.html";
+                    });
+                } else {
+                    layer.alert("上阵卡片已满")
+                }
+            });
+
         });
 
+        var divBox1 = '<h1 style="text-align:  center">上阵卡片</h1>';
+        $.get("/picture/getAllPictureByStatus", {}, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                divBox1 += '<div class="box"><img class="cardItem" src="\.' + data[i].picturePath + '">;'
+                divBox1 += '<ul class="ulBox">';
+                divBox1 += '<li>名称：' + data[i].pictureName + '</li>';
+                divBox1 += '<li>攻击：' + data[i].harm + '</li>';
+                divBox1 += '</ul>';
+                divBox1 += '<button data-id="' + data[i].id + '" label="btnUnPlay" class="btn">休息</button>';
+                divBox1 += '</div>';
+            }
+            $("#play").html(divBox1);
+            $("[label='btnUnPlay']").click(function () {
+                var id = $(this).data("id");
+                // alert(id);
+                $.post("/picture/updatePictureStatus", {flag: 0, id: id}, function (data) {
+                    window.location.href = "/user/user.html";
+                })
+            });
+        });
+
+
     });
+
 </script>
 

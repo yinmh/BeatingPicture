@@ -8,6 +8,6 @@ public class Picture {
     private String picturePath;
     private String pictureName;
     private long harm;
-
+    private int status;
 
 }
