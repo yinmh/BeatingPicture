@@ -1,18 +1,23 @@
-package java.org.game.beatingpicture.mapper;
+package org.game.beatingpicture.mapper;
 
 import org.game.beatingpicture.entity.User;
-import org.game.beatingpicture.mapper.UserMapper;
+import org.game.beatingpicture.entity.UserInfo;
 import org.junit.Test;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
-import java.org.game.beatingpicture.base.BaseJunit;
+import org.game.beatingpicture.base.BaseJunit;
 import java.util.Date;
 
 public class TestUserMapper extends BaseJunit {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private static UserInfoMapper userInfoMapper;
+
+    @Test
+    public void test1() {
+
+    }
 
     @Test
     public void test() {
@@ -25,7 +30,8 @@ public class TestUserMapper extends BaseJunit {
     }
 
     public static void main(String[] args) {
-
+        UserInfo info = userInfoMapper.findById(14);
+        System.out.println(info);
     }
 
 

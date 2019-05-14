@@ -18,6 +18,7 @@
     </style>
 </head>
 <body class="layui-layout-body">
+<input type="hidden" id="rName">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header custom-header">
 
@@ -139,6 +140,8 @@
         <button id="rankList" class="layui-btn layui-btn-warm" style="position: absolute;bottom: 0;left: 100px;">
             排行榜
         </button>
+
+        <button class="layui-btn layui-btn-primary" id="chat"  style="position: absolute;bottom: 0;left:200px;">聊天</button>
     </div>
 </div>
 
@@ -246,6 +249,24 @@
                     , content: html
                     , success: function () {
 
+                    }
+                });
+                $("#layerIndex").val(index);
+            });
+        });
+
+        $("#chat").click(function () {
+            $("#rName").val(data.roleName);
+            $.get('chat/chat.html', function (html) {
+                var index = layer.open({
+                    id: 101
+                    , type: 1
+                    , title: '玩家消息'
+                    , area: ['1000px', '500px']
+                    , shade: 0.5
+                    , content: html
+                    , success: function () {
+                        layer.close(index)
                     }
                 });
                 $("#layerIndex").val(index);

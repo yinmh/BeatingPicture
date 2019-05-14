@@ -19,4 +19,6 @@ public interface UserInfoService {
 
     void updateCoin(int coin,int userInfoId);
 
+    UserInfo findById(int userInfoId);
+
 }

@@ -1,4 +1,4 @@
-package java.org.game.beatingpicture.base;
+package org.game.beatingpicture.base;
 
 import org.game.beatingpicture.BeatingPictureApplication;
 import org.junit.Before;
@@ -20,18 +20,4 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest(classes = BeatingPictureApplication.class)
 @WebAppConfiguration
 public class BaseJunit {
-
-    @Autowired
-    WebApplicationContext webApplicationContext;
-
-    protected MockMvc mockMvc;
-
-    @Before
-    public void setupMockMvc() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    @Before
-    public void initDatabase() {
-    }
 }

@@ -24,7 +24,6 @@ public class DesingationController {
     private DesingationService desingationService;
     @Autowired
     private UserInfoMapper userInfoMapper;
-
     @Autowired
     private UserService userService;
 

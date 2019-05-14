@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="../layui/css/layui.css">
+<link rel="stylesheet" href="../layui/css/admin.css">
+<link rel="stylesheet" href="../layui/css/view.css">
+<style>
+    .content {
+        width: auto;
+        height: 300px;
+        border: 1px solid rgba(0, 0, 0, 0.16);
+        border-bottom: none;
+    }
+
+    .sendBtn {
+        position: relative;
+        top: -34px;
+        left: 800px;
+    }
+
+    .uname {
+        font-size: 16px;
+        margin-right: 15px;
+    }
+</style>
+<div class="layui-content">
+    <div class="layui-input-block">
+        <div class="content" id="content">
+                <!--<span class="uname">GM</span>-->
+                <!--<span>时间:2018-12-11 15:30:21</span>-->
+                <!--<p style="display:block;background-color: rgba(255,247,69,0.24)">你们好</p>-->
+        </div>
+        <textarea id="demo" style="display: none;"></textarea>
+        <button id="sendBtn" class="layui-btn layui-btn-blue layui-btn-sm sendBtn">发送</button>
+    </div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../layui/layui.all.js"></script>
+
+<script>
+    $(function () {
+        layui.use('layedit', function () {
+            var layedit = layui.layedit
+                , $ = layui.jquery;
+
+            //构建一个默认的编辑器
+            var index = layedit.build('demo', {
+                height: 40 //设置编辑器高度4
+                , tool:
+                    ['left',
+                        'center',
+                        'right',
+                        '|',
+                        'face',
+                        'strong', //加粗
+                        'italic',//斜体
+                        'underline', //下划线
+                        'del' //删除线
+                    ]
+            });
+
+            //编辑器外部操作
+            var active = {
+                content: function () {
+                    alert(layedit.getContent(index)); //获取编辑器内容
+                }
+                , text: function () {
+                    alert(layedit.getText(index)); //获取编辑器纯文本内容
+                }
+                , selection: function () {
+                    alert(layedit.getSelection(index));
+                }
+            };
+
+            $('.site-demo-layedit').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+            var socket = new WebSocket("ws://localhost:8080/websocket");
+            socket.onopen = function () {
+                console.log("Socket 已打开");
+                //socket.send("这是来自客户端的消息" + location.href + new Date());
+            };
+            //获得消息事件
+            var con = '';
+            socket.onmessage = function (msg) {
+                    var s = msg.data.split("\n");
+                    con += '<span>'+s[0]+'</span>';
+                    con += '<p style="display:block;background-color: rgba(255,247,69,0.24)">'+s[1]+'</p>';
+                    $("#content").html(con);
+            };
+
+            //关闭事件
+            socket.onclose = function () {
+                console.log("Socket已关闭");
+            };
+            //发生了错误事件
+            // socket.onerror = function() {
+            //     alert("Socket发生了错误");
+            // }
+            // $(window).unload(function(){
+            //     socket.close();
+            // });
+
+            $("#sendBtn").click(function () {
+                var content = layedit.getContent(index);
+                //alert(content);
+                var roleName = $("#rName").val();
+                var date = new Date();
+                var text = roleName + '  ' + date + '\n' + content;
+                socket.send(text);
+            });
+
+        });
+    });
+</script>
+

@@ -7,6 +7,7 @@ import org.game.beatingpicture.service.UserService;
 import org.game.beatingpicture.util.PasswordHash;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,10 @@ public class RegistController {
     }
 
     @PostMapping("/registuser")
-    public void registUser(User user){
+    public ResponseEntity registUser(User user){
         //todo
         user.setPassword(PasswordHash.createHash(user.getPassword()));
         userService.registUser(user);
+        return ResponseEntity.ok(0);
     }
 }

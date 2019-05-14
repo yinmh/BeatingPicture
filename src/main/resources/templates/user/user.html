@@ -16,8 +16,8 @@
         border: none;
         cursor: pointer;
         position: absolute;
-        left: 45px;
-        bottom: 45px;
+        left: 52px;
+        bottom: 40px;
     }
 
     .ulBox {
@@ -25,7 +25,7 @@
         width: 130px;
         height: 200px;
         top: -90px;
-        left: 130px;
+        left: 135px;
     }
 
     .box {
@@ -33,6 +33,9 @@
         position: relative;
         width: 262px;
         height: 200px;
+    }
+    .borderRank{
+        border: 4px solid rgb(255, 251, 0);
     }
 </style>
 <div class="layui-content">
@@ -46,7 +49,7 @@
             <h2>闪避</h2>
         </div>
 
-        <div id="play" class="layui-row" style="margin-top: 20px;border: 2px solid yellow">
+        <div id="play" class="layui-row" style="margin-top: 20px;border: 2px solid #181bff">
             <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
             <!--<button class="btn">休息</button>-->
             <!--</div>-->
@@ -103,13 +106,13 @@
             <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
             <!--<button class="btn">上阵</button>-->
             <!--</div>-->
-            <div class="box"><img class="cardItem" src="../image/4.jpg">
-                <ul class="ulBox">
-                    <li>名称：sss</li>
-                    <li>攻击：1000</li>
-                </ul>
-                <button class="btn">上阵</button>
-            </div>
+            <!--<div class="box"><img class="cardItem" src="../image/4.jpg">-->
+                <!--<ul class="ulBox">-->
+                    <!--<li>名称：sss</li>-->
+                    <!--<li>攻击：1000</li>-->
+                <!--</ul>-->
+                <!--<button class="btn">上阵</button>-->
+            <!--</div>-->
 
         </div>
 
@@ -133,7 +136,7 @@
         $.get("/picture/getAllPictureByUserInfoId", {}, function (data) {
             var length = data.count;
             for (var i = 0; i < data.list.length; i++) {
-                divBox += '<div class="box"><img class="cardItem" src="\.' + data.list[i].picturePath + '">;'
+                divBox += '<div class="box"><img class="cardItem" src="\.' + data.list[i].picturePath + '">';
                 divBox += '<ul class="ulBox">';
                 divBox += '<li>名称：' + data.list[i].pictureName + '</li>';
                 divBox += '<li>攻击：' + data.list[i].harm + '</li>';
@@ -158,7 +161,7 @@
         var divBox1 = '<h1 style="text-align:  center">上阵卡片</h1>';
         $.get("/picture/getAllPictureByStatus", {}, function (data) {
             for (var i = 0; i < data.length; i++) {
-                divBox1 += '<div class="box"><img class="cardItem" src="\.' + data[i].picturePath + '">;'
+                divBox1 += '<div class="box"><img class="cardItem borderRank" src="\.' + data[i].picturePath + '">;'
                 divBox1 += '<ul class="ulBox">';
                 divBox1 += '<li>名称：' + data[i].pictureName + '</li>';
                 divBox1 += '<li>攻击：' + data[i].harm + '</li>';

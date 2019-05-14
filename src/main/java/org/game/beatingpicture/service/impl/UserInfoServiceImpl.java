@@ -46,4 +46,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public void updateCoin(int coin, int userInfoId) {
         userInfoMapper.updateCoin(coin,userInfoId);
     }
+
+    @Override
+    public UserInfo findById(int userInfoId) {
+        return userInfoMapper.findById(userInfoId);
+    }
 }
