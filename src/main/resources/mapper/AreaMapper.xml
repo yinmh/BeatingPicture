@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.game.beatingpicture.mapper.AreaMapper">
+
+    <!-- 通用查询结果列 -->
+    <!--<sql id="Base_Column_List">-->
+        <!--USER_ID AS userId, AVATAR AS avatar, ACCOUNT AS account,-->
+        <!--NAME AS name, BIRTHDAY AS birthday, SEX AS sex, EMAIL AS email, PHONE AS phone,-->
+        <!--ROLE_ID AS roleId, DEPT_ID AS deptId, STATUS AS status, CREATE_TIME AS createTime, CREATE_USER AS createUser,-->
+        <!--UPDATE_TIME AS updateTime, UPDATE_USER AS updateUser, VERSION AS version-->
+    <!--</sql>-->
+
+    <!--<sql id="Base_Column_List_With_Pwd">-->
+        <!--USER_ID AS userId, AVATAR AS avatar, ACCOUNT AS account, PASSWORD AS password,-->
+        <!--SALT AS salt, NAME AS name, BIRTHDAY AS birthday, SEX AS sex, EMAIL AS email, PHONE AS phone,-->
+        <!--ROLE_ID AS roleId, DEPT_ID AS deptId, STATUS AS status, CREATE_TIME AS createTime, CREATE_USER AS createUser,-->
+        <!--UPDATE_TIME AS updateTime, UPDATE_USER AS updateUser, VERSION AS version-->
+    <!--</sql>-->
+
+    <!--<select id="list" resultMap="BaseResultMap">-->
+        <!--select * from sys_user-->
+        <!--where STATUS != 'DELETED'-->
+        <!--<if test="name != null and name != ''">-->
+            <!--and (PHONE like CONCAT('%',#{name},'%')-->
+            <!--or ACCOUNT like CONCAT('%',#{name},'%')-->
+            <!--or NAME like CONCAT('%',#{name},'%'))-->
+        <!--</if>-->
+        <!--<if test="deptId != null and deptId != 0">-->
+            <!--and (DEPT_ID = #{deptId} or DEPT_ID in ( select DEPT_ID from sys_dept where PIDS like CONCAT('%[', #{deptId}, ']%') ))-->
+        <!--</if>-->
+        <!--<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">-->
+            <!--and (CREATE_TIME between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))-->
+        <!--</if>-->
+        <!--limit #{offset}, #{limit}-->
+    <!--</select>-->
+
+    <!--<select id="count" resultType="int">-->
+        <!--select count(*) from sys_user-->
+        <!--where STATUS != 'DELETED'-->
+        <!--<if test="name != null and name != ''">-->
+            <!--and (PHONE like CONCAT('%',#{name},'%')-->
+            <!--or ACCOUNT like CONCAT('%',#{name},'%')-->
+            <!--or NAME like CONCAT('%',#{name},'%'))-->
+        <!--</if>-->
+        <!--<if test="deptId != null and deptId != 0">-->
+            <!--and (DEPT_ID = #{deptId} or DEPT_ID in ( select DEPT_ID from sys_dept where PIDS like CONCAT('%[', #{deptId}, ']%') ))-->
+        <!--</if>-->
+        <!--<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">-->
+            <!--and (CREATE_TIME between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!--<select id="selectByAccount" resultType="cn.stylefeng.guns.entity.User">-->
+        <!--select-->
+        <!--<include refid="Base_Column_List_With_Pwd"/>-->
+        <!--from sys_user where ACCOUNT = #{account} and STATUS != 'DELETED'-->
+    <!--</select>-->
+
+
+    <update id="updateStatus">
+    update area set status=#{status} where id=#{areaId}
+    </update>
+
+
+    <select id="findAll"  resultType="org.game.beatingpicture.entity.Area">
+        select * from area
+    </select>
+
+
+    <!--<select id="findUserInfoByUserId" parameterType="int" resultType="org.game.beatingpicture.entity.UserInfo">-->
+        <!--select * from user_info where user_id = #{userId}-->
+    <!--</select>-->
+
+    <!--<insert id="addUser" useGeneratedKeys="true" keyProperty="id" >-->
+        <!--INSERT INTO user (username, password, create_time, status )-->
+        <!--VALUES (#{username}, #{password}, #{createTime}, #{status})-->
+    <!--</insert>-->
+
+    <!--<update id="update">-->
+        <!--update sys_user set avatar=#{avatar}, name=#{name}, birthday=#{birthday}, sex=#{sex}, email=#{email},-->
+            <!--phone=#{phone}, dept_Id=#{deptId} where user_id=#{userId}-->
+    <!--</update>-->
+
+    <!--<update id="updateStatus">-->
+        <!--update sys_user set status=#{code} where user_id=#{userId}-->
+    <!--</update>-->
+
+    <!--<update id="updatePassword">-->
+        <!--update sys_user set password=#{password} where user_id=#{userId}-->
+    <!--</update>-->
+
+</mapper>
