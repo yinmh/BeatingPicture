@@ -1,6 +1,4 @@
 package org.game.beatingpicture.controller;
-
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -8,6 +6,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.game.beatingpicture.entity.User;
+import org.game.beatingpicture.service.AreaService;
 import org.game.beatingpicture.service.UserService;
 import org.game.beatingpicture.util.PasswordHash;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 
 @Controller

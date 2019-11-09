@@ -18,17 +18,17 @@ public interface UserInfoMapper {
 
     void createUserInfo(UserInfo userInfo);
 
-    Desingation getDesingationById(int id);
+    Desingation getDesingationById(Integer id);
 
-    Rank getRankById(int id);
+    Rank getRankById(Integer id);
 
-    void updateHeadImg(@Param("userInfoId") int userInfoId, @Param("headImgId") int headImgId);
+    void updateHeadImg(@Param("userInfoId") Integer userInfoId, @Param("headImgId") Integer headImgId);
 
-    HeadImg getUserHeadImgByHeadImgId(int userInfoId);
+    HeadImg getUserHeadImgByHeadImgId(Integer userInfoId);
 
-    void updateDesingationById(@Param("id") int id, @Param("integralValue") int integralValue, @Param("userInfoId") int userInfoId);
+    void updateDesingationById(@Param("id") Integer id, @Param("integralValue") Integer integralValue, @Param("userInfoId") Integer userInfoId);
 
-    void updateCoin(@Param("coin") int coin, @Param("userInfoId") int userInfo);
+    void updateCoin(@Param("coin") Integer coin, @Param("userInfoId") Integer userInfo);
 
-    UserInfo findById(int userInfoId);
+    UserInfo findById(Integer userInfoId);
 }

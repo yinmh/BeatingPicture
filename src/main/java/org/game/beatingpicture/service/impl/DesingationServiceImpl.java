@@ -13,12 +13,12 @@ public class DesingationServiceImpl implements DesingationService {
     @Autowired
     private DesingationMapper desingationMapper;
     @Override
-    public List<Desingation> getDesingation(int desingationId) {
+    public List<Desingation> getDesingation(Integer desingationId) {
         return desingationMapper.getDesingation(desingationId);
     }
 
     @Override
-    public Desingation getDesingationById(int id) {
+    public Desingation getDesingationById(Integer id) {
         return desingationMapper.getDesingationById(id);
     }
 }

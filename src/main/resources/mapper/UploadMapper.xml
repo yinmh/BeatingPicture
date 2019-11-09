@@ -85,8 +85,8 @@
     <!--</select>-->
 
     <insert id="addUploadPicture" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO upload_picture (id,user_id,picture_name, upload_time)
-        VALUES (#{id}, #{userId},#{pictureName}, #{uploadTime})
+        INSERT INTO upload_picture (id,user_id,picture_name,attack,defense,hit,miss,power,upload_reason,upload_time)
+        VALUES (#{id}, #{userId},#{pictureName},#{attack},#{defense},#{hit},#{miss},#{power},#{uploadReason},#{uploadTime})
     </insert>
 
     <!--<select id="findUserInfoByUserId" parameterType="int" resultType="org.game.beatingpicture.entity.UserInfo">-->

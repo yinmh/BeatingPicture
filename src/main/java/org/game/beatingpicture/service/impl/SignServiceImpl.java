@@ -19,12 +19,12 @@ public class SignServiceImpl implements SignService {
     }
 
     @Override
-    public Sign getSignByUserInfoId(int userInfoId) {
+    public Sign getSignByUserInfoId(Integer userInfoId) {
         return signMapper.getSignByUserInfoId(userInfoId);
     }
 
     @Override
-    public void updateSigned(int flag) {
+    public void updateSigned(Integer flag) {
         signMapper.updateSigned(flag);
     }
 }

@@ -77,27 +77,14 @@
         <!--from sys_user where ACCOUNT = #{account} and STATUS != 'DELETED'-->
     <!--</select>-->
 
-    <select id="getExpByRankId"  parameterType="int" resultType="long">
+    <select id="getExpByRankId"  parameterType="int" resultType="int">
         select exp from rank where id = #{rankId}
     </select>
 
-    <!--<select id="getDesingationById" parameterType="int" resultType="org.game.beatingpicture.entity.Desingation">-->
-        <!--select * from desingation where id = #{id}-->
-    <!--</select>-->
-
-    <!--<select id="findUserInfoByUserId" parameterType="int" resultType="org.game.beatingpicture.entity.UserInfo">-->
-        <!--select * from user_info where user_id = #{userId}-->
-    <!--</select>-->
-
-    <!--<insert id="addUser" useGeneratedKeys="true" keyProperty="id" >-->
-        <!--INSERT INTO user (username, password, create_time, status )-->
-        <!--VALUES (#{username}, #{password}, #{createTime}, #{status})-->
-    <!--</insert>-->
 
     <update id="updateRankByUserInfoId">
         update user_info set rank_id = rank_id + 1 where id = #{userInfoId}
     </update>
-
 
     <update id="updateExpByUserInfoId">
         update user_info set h_exp = h_exp + #{gExp} where id = #{userInfoId}
@@ -106,7 +93,6 @@
     <update id="updateExpByUserInfoIdSet">
         update user_info set h_exp = #{gExp} where id = #{userInfoId}
     </update>
-
 
 
     <!--<update id="updateStatus">-->

@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class Rank {
-    private int id;
+    private Integer id;
     private String rankName;
-    private long exp;
+    private Integer exp;
+    private Integer getGoldMoney;
 }

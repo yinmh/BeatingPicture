@@ -5,11 +5,11 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ExpMapper {
-    long getExpByRankId(int rankId);
+    Integer getExpByRankId(Integer rankId);
 
-    void updateRankByUserInfoId(int userInfoId);
+    void updateRankByUserInfoId(Integer userInfoId);
 
-    void updateExpByUserInfoId(@Param("gExp")long gExp,@Param("userInfoId")int userInfoId);
+    void updateExpByUserInfoId(@Param("gExp")Integer gExp,@Param("userInfoId")Integer userInfoId);
 
-    void updateExpByUserInfoIdSet(@Param("gExp")long gExp,@Param("userInfoId")int userInfoId);
+    void updateExpByUserInfoIdSet(@Param("gExp")Integer gExp,@Param("userInfoId")Integer userInfoId);
 }

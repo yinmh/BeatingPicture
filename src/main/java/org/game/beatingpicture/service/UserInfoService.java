@@ -11,14 +11,14 @@ public interface UserInfoService {
 
     void addUserInfo(UserInfo userInfo);
 
-    void updateHeadImg(int userInfoId, int headImgId);
+    void updateHeadImg(Integer userInfoId, Integer headImgId);
 
-    HeadImg getUserHeadImgByHeadImgId(int userInfoId);
+    HeadImg getUserHeadImgByHeadImgId(Integer userInfoId);
 
-    void updateDesingationById(int id,int integralValue, int userInfoId);
+    void updateDesingationById(Integer id,Integer integralValue, Integer userInfoId);
 
-    void updateCoin(int coin,int userInfoId);
+    void updateCoin(Integer coin,Integer userInfoId);
 
-    UserInfo findById(int userInfoId);
+    UserInfo findById(Integer userInfoId);
 
 }

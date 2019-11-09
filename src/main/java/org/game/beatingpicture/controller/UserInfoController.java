@@ -55,9 +55,10 @@ public class UserInfoController {
     @RequestMapping("/getUserInfoByUserId")
     public ResponseEntity getUserInfoByUserId(HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
+        System.out.println(user.getId());
         UserInfoVo userInfoVo = new UserInfoVo();
         UserInfo userInfo = userService.getUserInfoByUserId(user.getId());
-        HeadImg headImg = userInfoService.getUserHeadImgByHeadImgId(userInfo.getHeadImgId());
+        HeadImg headImg = userInfoService.getUserHeadImgByHeadImgId(userInfo.getId());
         userInfoVo.setHeadImgPath(headImg.getHeadImgPath());
         Desingation desingation = userInfoMapper.getDesingationById(userInfo.getDesignationId());
         Rank rank = userInfoMapper.getRankById(userInfo.getRankId());
@@ -80,7 +81,7 @@ public class UserInfoController {
 
 
     @PostMapping("/updateHeadImg")
-    public ModelAndView updateHeadImg(HttpServletRequest request,int headImgId){
+    public ModelAndView updateHeadImg(HttpServletRequest request,Integer headImgId){
         User user = (User)request.getSession().getAttribute("user");
         UserInfo userinfo = userService.getUserInfoByUserId(user.getId());
         userInfoService.updateHeadImg(userinfo.getId(),headImgId);
@@ -112,7 +113,7 @@ public class UserInfoController {
     }
 
     @PostMapping("/exchangeDesingation")
-    public ResponseEntity exchangeDesingation(int id,HttpServletRequest request){
+    public ResponseEntity exchangeDesingation(Integer id,HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         UserInfo userInfo = userService.getUserInfoByUserId(user.getId());
         Desingation desingation = desingationService.getDesingationById(id);
@@ -127,7 +128,6 @@ public class UserInfoController {
         User user = (User) request.getSession().getAttribute("user");
         UserInfo userInfo = userService.getUserInfoByUserId(user.getId());
         Sign sign = signService.getSignByUserInfoId(id);
-//        System.out.println(sign);
         userInfoService.updateCoin(sign.getGetCoin(),userInfo.getId());
         return ResponseEntity.ok(0);
     }

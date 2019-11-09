@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Sign {
-    private int id;
+    private Integer id;
     private String  title;
-    private int getCoin;
+    private Integer getCoin;
     private String icon;
 }

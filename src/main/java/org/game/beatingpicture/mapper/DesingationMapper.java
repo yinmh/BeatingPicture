@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface DesingationMapper {
-    List<Desingation> getDesingation(int desingationId);
+    List<Desingation> getDesingation(Integer desingationId);
 
-    Desingation getDesingationById(int id);
+    Desingation getDesingationById(Integer id);
 }

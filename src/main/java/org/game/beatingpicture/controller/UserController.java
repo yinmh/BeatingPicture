@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/findUserInfoByUserId")
-    public ResponseEntity findUserInfoByUserId(int userId)
+    public ResponseEntity findUserInfoByUserId(Integer userId)
     {
         return ResponseEntity.ok(userService.getUserInfoByUserId(userId));
     }

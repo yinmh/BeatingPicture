@@ -1,48 +1,73 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : 3306
 Source Server Version : 50624
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : beating_picture
 
 Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2019-05-07 11:53:31
+Date: 2019-11-09 16:18:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for boos
+-- Table structure for area
 -- ----------------------------
-DROP TABLE IF EXISTS `boos`;
-CREATE TABLE `boos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `area_id` int(11) DEFAULT NULL,
-  `blood` bigint(20) DEFAULT NULL,
-  `attack` int(11) DEFAULT NULL,
-  `g_exp` bigint(20) DEFAULT NULL,
-  `coin` int(11) DEFAULT NULL,
-  `update_time` int(11) DEFAULT '1',
+DROP TABLE IF EXISTS `area`;
+CREATE TABLE `area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '区域表主键',
+  `area_name` varchar(255) DEFAULT NULL COMMENT '区域',
+  `status` tinyint(4) DEFAULT '1' COMMENT '区域状态 （boss是否更新）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of boos
+-- Records of area
 -- ----------------------------
+INSERT INTO `area` VALUES ('1', '云雾峰', '0');
+INSERT INTO `area` VALUES ('2', '夺宝栈', '1');
+INSERT INTO `area` VALUES ('3', '崆峒山', '1');
+INSERT INTO `area` VALUES ('4', '神兵阁', '1');
+INSERT INTO `area` VALUES ('5', '藏宝洞一层', '1');
+INSERT INTO `area` VALUES ('6', '藏宝洞二层', '1');
+INSERT INTO `area` VALUES ('7', '藏宝洞三层', '1');
+INSERT INTO `area` VALUES ('8', '无名府', '1');
+
+-- ----------------------------
+-- Table structure for boss
+-- ----------------------------
+DROP TABLE IF EXISTS `boss`;
+CREATE TABLE `boss` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'boss表主键 id',
+  `name` varchar(255) DEFAULT NULL COMMENT 'boss名称',
+  `area_id` int(11) DEFAULT NULL COMMENT '区域id',
+  `blood` bigint(20) DEFAULT NULL COMMENT '血量',
+  `attack` int(11) DEFAULT NULL COMMENT '伤害',
+  `defense` int(11) DEFAULT '1' COMMENT '防御',
+  `g_exp` bigint(20) DEFAULT NULL COMMENT '击杀获得经验',
+  `coin` int(11) DEFAULT NULL COMMENT '击杀获得金币',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of boss
+-- ----------------------------
+INSERT INTO `boss` VALUES ('1', '帝释天', '1', '100000', '1000', '666', '400', '60');
 
 -- ----------------------------
 -- Table structure for category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(255) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类表主键 id',
+  `category_name` varchar(255) DEFAULT NULL COMMENT '分类名称',
+  `parent_id` int(11) DEFAULT NULL COMMENT '上级分类',
+  `description` varchar(255) DEFAULT NULL COMMENT '分类描述',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -55,9 +80,9 @@ CREATE TABLE `category` (
 -- ----------------------------
 DROP TABLE IF EXISTS `desingation`;
 CREATE TABLE `desingation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '积分（战斗力）',
-  `name` varchar(255) DEFAULT NULL,
-  `integral` bigint(20) DEFAULT '0' COMMENT '积分',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '称号表主键 id',
+  `name` varchar(255) DEFAULT NULL COMMENT '称号',
+  `integral` bigint(20) DEFAULT '0' COMMENT '所需积分',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
@@ -147,34 +172,38 @@ CREATE TABLE `menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `picture`;
 CREATE TABLE `picture` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `picture_path` varchar(255) DEFAULT NULL,
-  `picture_name` varchar(255) DEFAULT NULL,
-  `harm` bigint(20) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '卡牌表主键 id',
+  `picture_path` varchar(255) DEFAULT NULL COMMENT '卡牌路径',
+  `picture_name` varchar(255) DEFAULT NULL COMMENT '卡牌名',
+  `power` varchar(255) DEFAULT NULL COMMENT '战力',
+  `attack` bigint(20) DEFAULT NULL COMMENT '攻击',
+  `defense` int(11) DEFAULT NULL COMMENT '防御',
+  `hit` int(11) DEFAULT NULL COMMENT '暴击',
+  `miss` int(11) DEFAULT NULL COMMENT '闪避',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of picture
 -- ----------------------------
-INSERT INTO `picture` VALUES ('1', './image/picture/21.jpg', '图片1', '1000');
-INSERT INTO `picture` VALUES ('2', './image/picture/22.jpg', '图片2', '2000');
-INSERT INTO `picture` VALUES ('3', './image/picture/23.jpg', '图片3', '3000');
-INSERT INTO `picture` VALUES ('4', './image/picture/24.jpg', '图片4', '4000');
-INSERT INTO `picture` VALUES ('5', './image/picture/25.jpg', '图片5', '5000');
-INSERT INTO `picture` VALUES ('6', './image/picture/26.jpg', '图片6', '6000');
+INSERT INTO `picture` VALUES ('1', './image/picture/21.jpg', '图片1', '100', '1000', null, null, null);
+INSERT INTO `picture` VALUES ('2', './image/picture/22.jpg', '图片2', '200', '2000', null, null, null);
+INSERT INTO `picture` VALUES ('3', './image/picture/23.jpg', '图片3', '555', '3000', null, null, null);
+INSERT INTO `picture` VALUES ('4', './image/picture/24.jpg', '图片4', '600', '4000', null, null, null);
+INSERT INTO `picture` VALUES ('5', './image/picture/25.jpg', '图片5', '700', '5000', null, null, null);
+INSERT INTO `picture` VALUES ('6', './image/picture/26.jpg', '图片6', '320', '6000', null, null, null);
 
 -- ----------------------------
 -- Table structure for product
 -- ----------------------------
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `discount` float(12,0) DEFAULT '1',
-  `status` int(11) DEFAULT '1',
-  `picture_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品表主键 id',
+  `category_id` int(11) DEFAULT NULL COMMENT '分类id',
+  `price` int(11) DEFAULT NULL COMMENT '价格  ',
+  `discount` int(11) DEFAULT '10' COMMENT '折扣',
+  `status` int(11) DEFAULT '1' COMMENT '状态 1-上架 0-下架',
+  `picture_id` int(11) DEFAULT NULL COMMENT '图片id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -187,21 +216,40 @@ CREATE TABLE `product` (
 -- ----------------------------
 DROP TABLE IF EXISTS `rank`;
 CREATE TABLE `rank` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rank_name` varchar(128) NOT NULL,
-  `exp` bigint(20) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '等级表主键 id',
+  `rank_name` varchar(128) NOT NULL COMMENT '等级',
+  `exp` bigint(20) DEFAULT NULL COMMENT '升下级所需经验',
+  `get_gold_money` int(11) DEFAULT NULL COMMENT '升级获取元宝数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rank
 -- ----------------------------
-INSERT INTO `rank` VALUES ('1', '1级', '1000');
-INSERT INTO `rank` VALUES ('2', '2级', '1500');
-INSERT INTO `rank` VALUES ('3', '3级', '2200');
-INSERT INTO `rank` VALUES ('4', '4级', '2900');
-INSERT INTO `rank` VALUES ('5', '5级', '3500');
-INSERT INTO `rank` VALUES ('6', '6级', '4300');
+INSERT INTO `rank` VALUES ('1', '1级', '1000', null);
+INSERT INTO `rank` VALUES ('2', '2级', '1500', null);
+INSERT INTO `rank` VALUES ('3', '3级', '2200', null);
+INSERT INTO `rank` VALUES ('4', '4级', '2900', null);
+INSERT INTO `rank` VALUES ('5', '5级', '3500', null);
+INSERT INTO `rank` VALUES ('6', '6级', '4300', null);
+INSERT INTO `rank` VALUES ('7', '7级', '5400', null);
+INSERT INTO `rank` VALUES ('8', '8级', '6666', null);
+
+-- ----------------------------
+-- Table structure for rare_pet
+-- ----------------------------
+DROP TABLE IF EXISTS `rare_pet`;
+CREATE TABLE `rare_pet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '珍兽表 id',
+  `name` varchar(255) DEFAULT NULL,
+  `harm` int(11) DEFAULT NULL COMMENT '伤害',
+  `power` int(11) DEFAULT NULL COMMENT '战力',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of rare_pet
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for role
@@ -237,8 +285,8 @@ CREATE TABLE `role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `roll_img`;
 CREATE TABLE `roll_img` (
-  `id` int(11) NOT NULL,
-  `roll_img_path` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL COMMENT '商城轮播图 id',
+  `roll_img_path` varchar(255) DEFAULT NULL COMMENT '轮播图路径',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -270,21 +318,45 @@ INSERT INTO `sign` VALUES ('5', '星期五', '100', '&#xe62e;');
 INSERT INTO `sign` VALUES ('6', '星期六', '100', '&#xe735;');
 
 -- ----------------------------
+-- Table structure for throne
+-- ----------------------------
+DROP TABLE IF EXISTS `throne`;
+CREATE TABLE `throne` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '神兵表主键 id',
+  `name` varchar(255) DEFAULT NULL COMMENT '神兵名称',
+  `element_num` int(11) DEFAULT NULL COMMENT '所需稀有元素数量',
+  `need_gold_money` int(11) DEFAULT NULL COMMENT '所需元宝数',
+  `power` int(11) DEFAULT NULL COMMENT '战力',
+  `attack` int(11) DEFAULT NULL COMMENT '伤害',
+  `hit` int(11) DEFAULT NULL COMMENT '暴击',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of throne
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for upload_picture
 -- ----------------------------
 DROP TABLE IF EXISTS `upload_picture`;
 CREATE TABLE `upload_picture` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `picture_name` varchar(255) DEFAULT NULL,
-  `upload_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '上传表主键 id',
+  `user_id` int(11) DEFAULT NULL COMMENT '上传者id',
+  `picture_name` varchar(255) DEFAULT NULL COMMENT '卡片名称',
+  `attack` int(11) DEFAULT NULL COMMENT '攻击',
+  `defense` int(11) DEFAULT NULL COMMENT '防御',
+  `hit` int(11) DEFAULT NULL COMMENT '暴击',
+  `miss` int(11) DEFAULT NULL COMMENT '闪避',
+  `power` int(11) DEFAULT NULL COMMENT '战力',
+  `upload_reason` varchar(2048) DEFAULT NULL COMMENT '上传理由',
+  `upload_time` datetime DEFAULT NULL COMMENT '上传时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of upload_picture
 -- ----------------------------
-INSERT INTO `upload_picture` VALUES ('11', '14', 'AC48904E0F77F8B72D78A452D4560C0D.jpg', '2019-05-01 21:44:51');
 
 -- ----------------------------
 -- Table structure for user
@@ -297,72 +369,69 @@ CREATE TABLE `user` (
   `status` int(2) DEFAULT '1',
   `create_time` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('5', 'admin', '10:c337a74dccbbe8e9ddf62c2e39f8b26b3f76f02cd6cc102c:e2b0eeb9b6f7a68d2a0e85c5f0ead24c8608bc5eeff914fd', '1', null);
+INSERT INTO `user` VALUES ('6', 'test', '10:c337a74dccbbe8e9ddf62c2e39f8b26b3f76f02cd6cc102c:e2b0eeb9b6f7a68d2a0e85c5f0ead24c8608bc5eeff914fd', '1', null);
+INSERT INTO `user` VALUES ('17', 'test1', '10:c337a74dccbbe8e9ddf62c2e39f8b26b3f76f02cd6cc102c:e2b0eeb9b6f7a68d2a0e85c5f0ead24c8608bc5eeff914fd', '1', null);
 
 -- ----------------------------
 -- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `head_img_id` int(11) NOT NULL,
-  `coin` bigint(20) DEFAULT '0',
-  `power` int(11) DEFAULT '3000',
-  `designation_id` int(11) DEFAULT '1',
-  `rank_id` int(11) NOT NULL DEFAULT '1',
-  `user_id` int(11) NOT NULL,
-  `gold_money` bigint(20) DEFAULT '0',
-  `integral` int(11) DEFAULT '0',
-  `sex` varchar(255) DEFAULT NULL,
-  `role_name` varchar(255) DEFAULT NULL,
-  `signed` int(11) DEFAULT NULL,
-  `h_exp` bigint(20) DEFAULT '0',
-  `rewarded` int(11) DEFAULT '1',
-  `attack` int(11) DEFAULT NULL,
-  `defense` int(11) DEFAULT NULL,
-  `hit` int(11) DEFAULT NULL,
-  `miss` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户信息类 主键',
+  `head_img_id` int(11) NOT NULL COMMENT '头像id',
+  `coin` bigint(20) DEFAULT '0' COMMENT '金币',
+  `power` int(11) DEFAULT '3000' COMMENT '战斗力',
+  `designation_id` int(11) DEFAULT '1' COMMENT '称号id',
+  `rank_id` int(11) NOT NULL DEFAULT '1' COMMENT '等级id',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `gold_money` bigint(20) DEFAULT '0' COMMENT '元宝',
+  `integral` int(11) DEFAULT '0' COMMENT '积分 用于兑换称号',
+  `sex` varchar(255) DEFAULT NULL COMMENT '性别',
+  `role_name` varchar(255) DEFAULT NULL COMMENT 'jiao色名称',
+  `signed` int(11) DEFAULT '1' COMMENT '可签到',
+  `h_exp` bigint(20) DEFAULT '0' COMMENT '拥有经验',
+  `rewarded` int(11) DEFAULT '1' COMMENT '可抽奖',
+  `attack` int(11) DEFAULT NULL COMMENT '攻击',
+  `defense` int(11) DEFAULT NULL COMMENT '防御',
+  `hit` int(11) DEFAULT NULL COMMENT '暴击',
+  `miss` int(11) DEFAULT NULL COMMENT '闪避',
+  `rare_pet_id` int(11) DEFAULT NULL COMMENT '珍兽id',
+  `throne_id` int(11) DEFAULT NULL COMMENT '神器id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('14', '3', '101899', '6666666', '5', '2', '5', '999999', '44299', '男', 'ADMIN', '1', '400', '1', null, null, null, null);
+INSERT INTO `user_info` VALUES ('14', '5', '103199', '6666666', '7', '4', '5', '999999', '16299', '男', 'ADMIN', '1', '1100', '1', null, null, null, null, null, null);
+INSERT INTO `user_info` VALUES ('15', '1', '100', '666', '1', '1', '6', '0', '0', '女', '我是测试人员', '1', '0', '1', null, null, null, null, null, null);
+INSERT INTO `user_info` VALUES ('16', '3', '100', '666', '1', '1', '17', '0', '0', '女', '陌生', '1', '0', '1', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user_picture
 -- ----------------------------
 DROP TABLE IF EXISTS `user_picture`;
 CREATE TABLE `user_picture` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `picture_id` int(11) NOT NULL,
-  `get_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户图片主键 id',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `picture_id` int(11) NOT NULL COMMENT '图片id',
+  `get_time` datetime DEFAULT NULL COMMENT '获取时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '上阵状态 1-上阵 -未上阵',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_picture
 -- ----------------------------
-
--- ----------------------------
--- Table structure for user_rank
--- ----------------------------
-DROP TABLE IF EXISTS `user_rank`;
-CREATE TABLE `user_rank` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `rank_id` int(11) NOT NULL,
-  `having_exp` bigint(20) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user_rank
--- ----------------------------
+INSERT INTO `user_picture` VALUES ('1', '14', '1', '2019-05-28 22:52:40', '1');
+INSERT INTO `user_picture` VALUES ('2', '14', '2', '2019-08-09 10:17:55', '0');
+INSERT INTO `user_picture` VALUES ('3', '14', '3', '2019-08-09 10:17:56', '1');
+INSERT INTO `user_picture` VALUES ('4', '14', '4', '2019-11-07 09:29:39', '1');
+INSERT INTO `user_picture` VALUES ('5', '14', '5', '2019-05-27 23:06:46', '1');
+INSERT INTO `user_picture` VALUES ('6', '14', '6', '2019-05-28 22:52:34', '1');

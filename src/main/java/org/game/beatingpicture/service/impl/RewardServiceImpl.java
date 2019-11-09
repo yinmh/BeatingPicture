@@ -10,7 +10,7 @@ public class RewardServiceImpl implements RewardService {
     @Autowired
     private RewardMapper rewardMapper;
     @Override
-    public void updateRewarded(int flag) {
+    public void updateRewarded(Integer flag) {
          rewardMapper.updateRewarded(flag);
     }
 }

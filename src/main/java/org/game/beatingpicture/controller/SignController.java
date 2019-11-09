@@ -1,5 +1,6 @@
 package org.game.beatingpicture.controller;
 
+import io.swagger.models.auth.In;
 import org.game.beatingpicture.entity.Desingation;
 import org.game.beatingpicture.entity.Sign;
 import org.game.beatingpicture.entity.User;
@@ -57,7 +58,7 @@ public class SignController {
 
 
     @PostMapping("/updateSigned")
-    public ResponseEntity updateSigned(int flag){
+    public ResponseEntity updateSigned(Integer flag){
         signService.updateSigned(flag);
         return ResponseEntity.ok(0);
     }

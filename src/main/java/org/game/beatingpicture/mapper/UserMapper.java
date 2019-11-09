@@ -20,5 +20,5 @@ public interface UserMapper {
      * */
     User findByUsername(String username);
 
-    UserInfo findUserInfoByUserId(int userId);
+    UserInfo findUserInfoByUserId(Integer userId);
 }

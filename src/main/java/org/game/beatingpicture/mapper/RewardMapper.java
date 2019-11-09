@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RewardMapper {
 
-    void updateRewarded(int flag);
+    void updateRewarded(Integer flag);
 }

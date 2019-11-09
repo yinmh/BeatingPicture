@@ -98,7 +98,7 @@
 
     <select id="getUserHeadImgByHeadImgId" parameterType="int" resultType="org.game.beatingpicture.entity.HeadImg">
         select h.* from head_img h inner join user_info u on u.head_img_id = h.id
-        where u.head_img_id = #{userInfoId}
+        where u.id = #{userInfoId}
     </select>
 
     <insert id="createUserInfo" useGeneratedKeys="true" keyProperty="id">

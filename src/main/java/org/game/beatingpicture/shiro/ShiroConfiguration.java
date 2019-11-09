@@ -42,6 +42,8 @@ public class ShiroConfiguration {
         map.put("/reward/**", "authc");
         map.put("/picture/**", "authc");
         map.put("/desingation/**", "authc");
+        map.put("/area/**", "authc");
+        map.put("/boss/**", "authc");
         map.put("/sign/**", "authc");
         map.put("/exp/**", "authc");
         map.put("/index", "authc");

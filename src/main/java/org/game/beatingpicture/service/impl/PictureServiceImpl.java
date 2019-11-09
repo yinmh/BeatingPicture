@@ -14,22 +14,22 @@ public class PictureServiceImpl implements PictureService {
     private PictureMapper pictureMapper;
 
     @Override
-    public List<Picture> getAllPictureByUserInfoId(int userInfoId) {
+    public List<Picture> getAllPictureByUserInfoId(Integer userInfoId) {
         return pictureMapper.getAllPictureByUserInfoId(userInfoId);
     }
 
     @Override
-    public List<Picture> getAllPictureByStatus(int userInfoId) {
+    public List<Picture> getAllPictureByStatus(Integer userInfoId) {
         return pictureMapper.getAllPictureByStatus(userInfoId);
     }
 
     @Override
-    public void updatePictureStatus(int id, int flag) {
+    public void updatePictureStatus(Integer id, Integer flag) {
         pictureMapper.updatePictureStatus(id,flag);
     }
 
     @Override
-    public int findCount(int userInfoId) {
+    public int findCount(Integer userInfoId) {
         return pictureMapper.findCount(userInfoId);
     }
 }

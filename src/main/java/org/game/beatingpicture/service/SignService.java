@@ -7,7 +7,7 @@ import java.util.List;
 public interface SignService {
     List<Sign> getAllSign();
 
-    Sign getSignByUserInfoId(int userInfoId);
+    Sign getSignByUserInfoId(Integer userInfoId);
 
-    void updateSigned(int flag);
+    void updateSigned(Integer flag);
 }

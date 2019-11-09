@@ -9,7 +9,7 @@ import java.util.List;
 public interface SignMapper {
     List<Sign> getAllSign();
 
-    Sign getSignByUserInfoId(int id);
+    Sign getSignByUserInfoId(Integer id);
 
-    void updateSigned(int flag);
+    void updateSigned(Integer flag);
 }

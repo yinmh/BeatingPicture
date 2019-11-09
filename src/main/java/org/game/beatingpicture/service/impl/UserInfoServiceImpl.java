@@ -15,6 +15,7 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private UserInfoMapper userInfoMapper;
+
     @Override
     public List<HeadImg> getAllHeadImg() {
         return userInfoMapper.findAllHeadImg();
@@ -22,33 +23,33 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void addUserInfo(UserInfo userInfo) {
-        if(userInfo != null){
+        if (userInfo != null) {
             userInfoMapper.createUserInfo(userInfo);
         }
     }
 
     @Override
-    public void updateHeadImg(int userInfoId, int headImgId) {
-         userInfoMapper.updateHeadImg(userInfoId,headImgId);
+    public void updateHeadImg(Integer userInfoId, Integer headImgId) {
+        userInfoMapper.updateHeadImg(userInfoId, headImgId);
     }
 
     @Override
-    public HeadImg getUserHeadImgByHeadImgId(int userInfoId) {
+    public HeadImg getUserHeadImgByHeadImgId(Integer userInfoId) {
         return userInfoMapper.getUserHeadImgByHeadImgId(userInfoId);
     }
 
     @Override
-    public void updateDesingationById(int id,int integralValue, int userInfoId) {
-         userInfoMapper.updateDesingationById(id,integralValue,userInfoId);
+    public void updateDesingationById(Integer id, Integer integralValue, Integer userInfoId) {
+        userInfoMapper.updateDesingationById(id, integralValue, userInfoId);
     }
 
     @Override
-    public void updateCoin(int coin, int userInfoId) {
-        userInfoMapper.updateCoin(coin,userInfoId);
+    public void updateCoin(Integer coin, Integer userInfoId) {
+        userInfoMapper.updateCoin(coin, userInfoId);
     }
 
     @Override
-    public UserInfo findById(int userInfoId) {
+    public UserInfo findById(Integer userInfoId) {
         return userInfoMapper.findById(userInfoId);
     }
 }

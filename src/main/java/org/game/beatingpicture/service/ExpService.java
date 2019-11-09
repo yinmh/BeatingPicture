@@ -1,10 +1,10 @@
 package org.game.beatingpicture.service;
 
 public interface ExpService {
-    long getExpByRankId(int rankId);
+    Integer getExpByRankId(Integer rankId);
 
-    void updateRankByUserInfoId(int userInfoId);
+    void updateRankByUserInfoId(Integer userInfoId);
 
-    void updateExpByUserInfoId(long gExp,int userInfoId);
-    void updateExpByUserInfoIdSet(long gExp,int userInfoId);
+    void updateExpByUserInfoId(Integer gExp,Integer userInfoId);
+    void updateExpByUserInfoIdSet(Integer gExp,Integer userInfoId);
 }

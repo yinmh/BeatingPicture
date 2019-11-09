@@ -34,21 +34,22 @@
         width: 262px;
         height: 200px;
     }
-    .borderRank{
+
+    .borderRank {
         border: 4px solid rgb(255, 251, 0);
     }
 
-    #challengeCard{
+    #challengeCard {
         position: absolute;
         bottom: 0px;
     }
 </style>
 <div class="layui-content">
-    boss
+    <span id="bo">boss</span>
     <div id="boss" class="layui-progress layui-progress-big" lay-filter="boss" lay-showPercent="true">
         <div class="layui-progress-bar layui-bg-green" lay-percent="100%">boss</div>
     </div>
-    我
+    <span>我</span>
     <div data-type="loading" class="layui-progress layui-progress-big" lay-filter="user" lay-showPercent="true">
         <div class="site-demo-active layui-progress-bar layui-bg-green" lay-percent="100%">user</div>
     </div>
@@ -71,17 +72,31 @@
         });
 
         layui.use('element', function () {
-            var boos_blood = 50000;
+            var areaId = $("#areaId").val();
+            var boos_blood;
+            var gExp;
+            var coin;
+            $.get("/boss/getBossByAreaId?areaId=" + areaId, {}, function (data) {
+                //console.log(data);
+                boos_blood = data.blood;
+                gExp = data.gexp;
+                coin = data.coin;
+            });
+
             var user_blood = 50000;
             var u_precent = 100;
             var b_precent = 100;
             element = layui.element;
-
             timer = setInterval(function () {
                 if (boos_blood <= 0) {
                     $("#boss").css("display", "none");
+                    $("#bo").css("display", "none");
                     clearInterval(timer);
-                    alert("挑战成功");
+                    console.log(areaId)
+                    $.post("/exp/upgradeAndUpdateCoin", {gExp: gExp, coin: coin,areaId:areaId}, function (data) {
+                        window.parent.location.reload();
+                        alert("挑战成功");
+                    });
                 }
                 if (user_blood <= 0) {
                     clearInterval(timer);
@@ -111,7 +126,6 @@
                 // console.log("boos_blood :" + boos_blood);
             }, 500);
         });
-
     });
 </script>
 

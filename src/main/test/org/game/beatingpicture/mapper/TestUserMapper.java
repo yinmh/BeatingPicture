@@ -21,12 +21,12 @@ public class TestUserMapper extends BaseJunit {
 
     @Test
     public void test() {
-        User user = new User();
-        user.setUsername("test1");
-        user.setPassword("123");
-        user.setCreateTime(new Date());
-        user.setStatus(1);
-        userMapper.addUser(user);
+//        User user = new User();
+//        user.setUsername("test1");
+//        user.setPassword("123");
+//        user.setCreateTime(new Date());
+//        user.setStatus(1);
+//        userMapper.addUser(user);
     }
 
     public static void main(String[] args) {

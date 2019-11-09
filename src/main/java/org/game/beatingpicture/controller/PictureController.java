@@ -1,5 +1,6 @@
 package org.game.beatingpicture.controller;
 
+import io.swagger.models.auth.In;
 import org.game.beatingpicture.entity.Picture;
 import org.game.beatingpicture.entity.User;
 import org.game.beatingpicture.entity.UserInfo;
@@ -54,7 +55,7 @@ public class PictureController {
      * 修改卡片上阵状态
      * */
     @PostMapping("/updatePictureStatus")
-    public ResponseEntity updatePictureStatus(int flag,int id) {
+    public ResponseEntity updatePictureStatus(Integer flag, Integer id) {
         pictureService.updatePictureStatus(id,flag);
         return ResponseEntity.ok(0);
     }
