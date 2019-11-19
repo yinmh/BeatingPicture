@@ -18,6 +18,7 @@ public interface UserInfoService {
     void updateDesingationById(Integer id,Integer integralValue, Integer userInfoId);
 
     void updateCoin(Integer coin,Integer userInfoId);
+    int findtCoin(Integer userInfoId);
 
     UserInfo findById(Integer userInfoId);
 

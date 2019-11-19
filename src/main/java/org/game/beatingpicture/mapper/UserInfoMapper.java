@@ -28,7 +28,7 @@ public interface UserInfoMapper {
 
     void updateDesingationById(@Param("id") Integer id, @Param("integralValue") Integer integralValue, @Param("userInfoId") Integer userInfoId);
 
-    void updateCoin(@Param("coin") Integer coin, @Param("userInfoId") Integer userInfo);
-
+    void updateCoin(@Param("coin") Integer coin, @Param("userInfoId") Integer userInfoId);
+    int selectCoin(Integer userInfoId);
     UserInfo findById(Integer userInfoId);
 }

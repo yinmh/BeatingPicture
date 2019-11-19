@@ -35,7 +35,27 @@
 <script src="../layui/layui.all.js"></script>
 
 <script>
+    var websocket;
     $(function () {
+        function dateFormat(fmt, date) {
+            var ret;
+            var opt = {
+                "Y+": date.getFullYear().toString(),        // 年
+                "m+": (date.getMonth() + 1).toString(),     // 月
+                "d+": date.getDate().toString(),            // 日
+                "H+": date.getHours().toString(),           // 时
+                "M+": date.getMinutes().toString(),         // 分
+                "S+": date.getSeconds().toString()          // 秒
+                // 有其他格式化字符需求可以继续添加，必须转化成字符串
+            };
+            for (var k in opt) {
+                ret = new RegExp("(" + k + ")").exec(fmt);
+                if (ret) {
+                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+                };
+            };
+            return fmt;
+        }
         layui.use('layedit', function () {
             var layedit = layui.layedit
                 , $ = layui.jquery;
@@ -74,42 +94,58 @@
                 active[type] ? active[type].call(this) : '';
             });
 
-            var socket = new WebSocket("ws://localhost:8080/websocket");
-            socket.onopen = function () {
-                console.log("Socket 已打开");
-                //socket.send("这是来自客户端的消息" + location.href + new Date());
-            };
+            if (typeof websocket  === 'undefined'){
+                if ('WebSocket' in window) {
+                    console.log("WebSocket");
+                    websocket = new WebSocket("ws://localhost:8080/echo");
+                } else if ('MozWebSocket' in window) {
+                    console.log("MozWebSocket");
+                    websocket = new MozWebSocket("ws://echo");
+                } else {
+                    console.log("SockJS");
+                    websocket = new SockJS("http://127.0.0.1:8080/sockjs/echo");
+                }
+                websocket.onopen = function () {
+                    console.log("Socket 已打开");
+                    //socket.send("这是来自客户端的消息" + location.href + new Date());
+                };
+            }
             //获得消息事件
             var con = '';
-            socket.onmessage = function (msg) {
-                    var s = msg.data.split("\n");
-                    con += '<span>'+s[0]+'</span>';
-                    con += '<p style="display:block;background-color: rgba(255,247,69,0.24)">'+s[1]+'</p>';
+            websocket.onmessage = function (evnt) {
+                var json = JSON.parse(evnt.data);
+                    con += '<span>'+json.from + '   ' + json.time +'</span>';
+                    con += '<p style="display:block;background-color: rgba(255,247,69,0.24)">'+json.msg+'</p>';
                     $("#content").html(con);
             };
 
-            //关闭事件
-            socket.onclose = function () {
-                console.log("Socket已关闭");
+            websocket.onerror = function (evnt) {
             };
-            //发生了错误事件
-            // socket.onerror = function() {
-            //     alert("Socket发生了错误");
-            // }
-            // $(window).unload(function(){
-            //     socket.close();
-            // });
 
+            window.onbeforeunload = function() {
+                websocket.close()
+            };
+
+            websocket.onclose = function (evnt) {
+                console.log("与服务器断开了链接!")
+            }
             $("#sendBtn").click(function () {
                 var content = layedit.getContent(index);
-                //alert(content);
                 var roleName = $("#rName").val();
                 var date = new Date();
-                var text = roleName + '  ' + date + '\n' + content;
-                socket.send(text);
+                var object = {
+                    time: dateFormat("YYYY-mm-dd HH:MM", date),
+                    msg: content,
+                    from:roleName,
+                    type: 1
+                };
+                var json = JSON.stringify(object);
+                websocket.send(json);
+                layedit.setContent(index,"");
             });
 
         });
     });
+
 </script>
 

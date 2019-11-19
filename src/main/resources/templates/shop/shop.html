@@ -11,6 +11,17 @@
         float: left;
         border: 1px solid silver;
     }
+    .card ul>li{
+        margin-right: 200px;
+        margin-top: 30px;
+    }
+    .card p{
+        margin-top: 15px;
+    }
+    .card button{
+        float:right;
+        margin-right: 15px;
+    }
 </style>
 
 <div class="layui-content">
@@ -34,21 +45,76 @@
         </div>
     </article>
     <div class="layui-container">
-        <div class="card"><img src="../image/picture/21.jpg"></div>
-        <div class="card"><img src="../image/picture/22.jpg"></div>
-        <div class="card"><img src="../image/picture/23.jpg"></div>
-        <div class="card"><img src="../image/picture/24.jpg"></div>
-        <div class="card"><img src="../image/picture/25.jpg"></div>
-        <div class="card"><img src="../image/picture/26.jpg"></div>
+        <div class="layui-form-item" id="selectBox">
+        </div>
+        <div id="productList"></div>
     </div>
 
-
 </div>
+<script src="../layui/layui.all.js"></script>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/PicCarousel.js"></script>
-<script src="../layui/layui.all.js"></script>
+
 
 <script>
+    var init = function(categoryId){
+        $.get("/shop/getProduct?categoryId="+categoryId,function (data) {
+            var pic = '';
+            for (var i = 0; i < data.length; i++) {
+                pic += '<div class="card">';
+                pic += '<img src=".'+ data[i].path +'">';
+                pic += '<ul style="float: right;right: 20px;">';
+                pic += ' <li>名称 '+ data[i].name +'</li>';
+                if (data[i].discount == 10){
+                    pic += ' <li>原价 '+  data[i].price +'元宝</li>';
+                    pic += ' <li><s>折扣</s></li>';
+                    pic += ' <li>现价 '+  data[i].price +'元宝</li>';
+                } else {
+                    pic += ' <li><s>原价 '+  data[i].price +'元宝</s></li>';
+                    pic += ' <li>折扣 <span style="color: rgba(255,0,0,0.75);">'+  data[i].discount +'</span>折</li>';
+                    pic += ' <li>现价 '+  parseInt(data[i].price * (data[i].discount * 0.1)) +'元宝</li>';
+                }
+                pic += '</ul>';
+                pic += '<p>攻击<div style="width: '+ (data[i].attack/20) +'px;background-color: red" class="layui-progress layui-progress-big"><div class="layui-progress-bar layui-bg-red" lay-percent="'+ data[i].discount +'"></div></div></p>';
+                pic += '<p>防御<div style="width: '+ (data[i].defense/5) +'px;background-color: #2a6fff" class="layui-progress layui-progress-big"><div class="layui-progress-bar layui-bg-green" lay-percent="35%"></div></div></p>';
+                pic += '<p>暴击<div style="width: '+ (data[i].hit) +'px;background-color: #ffac15" class="layui-progress layui-progress-big"><div class="layui-progress-bar layui-bg-orange" lay-percent="75%"></div></div></p>';
+                pic += '<p>闪避<div style="width: '+ (data[i].miss) +'px;background-color: #2cff4c" class="layui-progress layui-progress-big"><div class="layui-progress-bar  layui-bg-green" lay-percent="25%"></div></div></p>';
+                if (data[i].collected != 1){
+                    pic += ' <button btnLabel="collect" type="button" data-id="'+ data[i].id +'" class="layui-btn layui-btn-danger layui-btn-sm"><i class="layui-icon"><i class="layui-icon layui-icon-star"></i>收藏</button>';
+                }else {
+                    pic += ' <button btnLabel="collect" type="button" data-id="'+ data[i].id +'" class="layui-btn layui-btn-danger layui-btn-sm"><i class="layui-icon"><i class="layui-icon layui-icon-star-fill"></i>取消收藏</button>';
+                }
+                if (data[i].shoped != 1){
+                    pic += ' <button btnLabel="shop" type="button" data-id="'+ data[i].id +'" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon"><i class="layui-icon layui-icon-rmb"></i>购买</button>';
+                } else {
+                    pic += ' <button btnLabel="shop" type="button" data-id="'+ data[i].id +'" class="layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled" disabled><i class="layui-icon">已购买</button>';
+                }
+                pic += '</div>';
+            }
+            $("#productList").html(pic);
+
+            $("[btnLabel='collect']").click(function () {
+                var pictureId = $(this).data("id");
+                $.get("/shop/collectOrCancel?pictureId="+pictureId,function (data) {
+                })
+                init(categoryId);
+            })
+
+            $("[btnLabel='shop']").click(function () {
+                layer.confirm('确认购买吗？', {
+                    btn: ['购买','再看看']
+                }, function(){
+                    layer.msg('已经购买，快去卡片仓库看看吧', {icon: 1});
+                }, function(){
+                    layer.msg('再逛逛吧', {
+                        time: 20000, //20s后自动关闭
+                        btn: ['没毛病', '知道了']
+                    });
+                });
+            })
+        })
+    }
+
     $(function () {
         $(".A_Demo").PicCarousel("init");
         $(".B_Demo").PicCarousel({
@@ -62,6 +128,23 @@
             "delay": 1000,		//自动播放间隔
             "verticalAlign": "top"	//图片对齐位置
         });
+        init(0);
+        var sel = '<div class="layui-input-block" style="text-align: center"><select id="searchContent" name="interest" lay-filter="aihao" style="width: 200px;height: 25px;line-height: 25px"><option value="-1" selected>全部</option>';
+        $.get("/shop/getCategoryList",function (data) {
+            for (var i = 0; i < data.length; i++) {
+                sel += '<option value="'+ data[i].id +'">'+ data[i].categoryName +'</option>';
+            }
+            sel += '</select>';
+            sel += '<button  id="searchBtn" style="margin-left: 15px;height: 25px;line-height: 25px;margin-top: -5px" type="button" class="layui-btn layui-btn-primary layui-btn-radius"><i class="layui-icon layui-icon-search"></i>搜索</button>';
+            sel += '</div>';
+            $("#selectBox").html(sel);
+
+            $("#searchBtn").click(function () {
+               var categoryId =  $("#searchContent").val();
+                init(categoryId);
+            })
+        })
+
+
     });
 </script>
-

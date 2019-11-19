@@ -161,10 +161,11 @@
         var divBox1 = '<h1 style="text-align:  center">上阵卡片</h1>';
         $.get("/picture/getAllPictureByStatus", {}, function (data) {
             for (var i = 0; i < data.length; i++) {
+                console.log(data[i])
                 divBox1 += '<div class="box"><img class="cardItem borderRank" src="\.' + data[i].picturePath + '">;'
                 divBox1 += '<ul class="ulBox">';
                 divBox1 += '<li>名称：' + data[i].pictureName + '</li>';
-                divBox1 += '<li>攻击：' + data[i].attackx + '</li>';
+                divBox1 += '<li>攻击：' + data[i].attack + '</li>';
                 divBox1 += '</ul>';
                 divBox1 += '<button data-id="' + data[i].id + '" label="btnUnPlay" class="btn">休息</button>';
                 divBox1 += '</div>';

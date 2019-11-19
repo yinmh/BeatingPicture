@@ -49,6 +49,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public int findtCoin(Integer userInfoId) {
+        return userInfoMapper.selectCoin(userInfoId);
+    }
+
+    @Override
     public UserInfo findById(Integer userInfoId) {
         return userInfoMapper.findById(userInfoId);
     }

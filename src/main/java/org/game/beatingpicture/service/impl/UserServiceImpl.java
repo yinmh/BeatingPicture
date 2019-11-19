@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo getUserInfoByUserId(Integer userId) {
         UserInfo userInfo = userMapper.findUserInfoByUserId(userId);
-
         return userInfo;
     }
 }

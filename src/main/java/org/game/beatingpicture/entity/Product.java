@@ -10,5 +10,4 @@ public class Product {
     private Integer price;
     private Integer discount;
     private Integer status;
-
 }

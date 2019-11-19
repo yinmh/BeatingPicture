@@ -76,11 +76,25 @@
     <!--<include refid="Base_Column_List_With_Pwd"/>-->
     <!--from sys_user where ACCOUNT = #{account} and STATUS != 'DELETED'-->
     <!--</select>-->
+    <select id="selectPictureById" parameterType="int" resultType="org.game.beatingpicture.entity.Picture">
+     select * from picture where id = #{id}
+    </select>
 
     <select id="getAllPictureByUserInfoId" parameterType="int" resultType="org.game.beatingpicture.entity.Picture">
       select a.* from user_picture b
       inner join picture a on a.id = b.picture_id  where b.user_id = #{userInfoId}
       and b.status = 0
+    </select>
+
+
+    <select id="getUserPicture" parameterType="int" resultType="org.game.beatingpicture.entity.Picture">
+      select a.* from user_picture b
+      inner join picture a on a.id = b.picture_id  where b.user_id = #{userInfoId}
+    </select>
+
+    <select id="getUserCollect" parameterType="int" resultType="org.game.beatingpicture.entity.Picture">
+      select a.* from user_collect b
+      inner join picture a on a.id = b.picture_id  where b.user_id = #{userInfoId}
     </select>
 
     <select id="getAllPictureByStatus" parameterType="int" resultType="org.game.beatingpicture.entity.Picture">
@@ -95,18 +109,35 @@
       and b.status = 1
     </select>
 
+    <select id="selectCollected" parameterType="int" resultType="int">
+     select count(*) from user_collect where user_id = #{userInfoId} and picture_id = #{pictureId}
+    </select>
+
+    <select id="selectUserPictureCount" parameterType="int" resultType="int">
+     select count(*) from user_picture where user_id = #{userInfoId} and picture_id = #{pictureId}
+    </select>
+
     <update id="updatePictureStatus" parameterType="int">
       update user_picture set status = #{flag} where id = #{id}
     </update>
 
+    <insert id="addPicture" useGeneratedKeys="true" parameterType="java.util.Map">
+        INSERT INTO user_picture (user_id, picture_id,get_time,status)
+        VALUES (#{userId}, #{pictureId},#{getTime},#{status})
+    </insert>
+
+    <insert id="collect" useGeneratedKeys="true" parameterType="int">
+        INSERT INTO user_collect (user_id, picture_id)
+        VALUES (#{userInfoId}, #{pictureId})
+    </insert>
+
+    <delete id="cancelCollect" parameterType="int">
+        delete from user_collect where user_id = #{userInfoId} and picture_id = #{pictureId}
+    </delete>
+
     <!--<select id="findUserInfoByUserId" parameterType="int" resultType="org.game.beatingpicture.entity.UserInfo">-->
     <!--select * from user_info where user_id = #{userId}-->
     <!--</select>-->
-
-    <!--<insert id="addUser" useGeneratedKeys="true" keyProperty="id" >-->
-    <!--INSERT INTO user (username, password, create_time, status )-->
-    <!--VALUES (#{username}, #{password}, #{createTime}, #{status})-->
-    <!--</insert>-->
 
     <!--<update id="update">-->
     <!--update sys_user set avatar=#{avatar}, name=#{name}, birthday=#{birthday}, sex=#{sex}, email=#{email},-->

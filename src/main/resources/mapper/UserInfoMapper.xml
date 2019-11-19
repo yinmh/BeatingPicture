@@ -117,6 +117,10 @@
     <update id="updateCoin">
     update user_info set coin = coin + #{coin} where id = #{userInfoId}
     </update>
+
+    <select id="selectCoin" parameterType="int" resultType="int">
+        select coin from user_info where id = #{userInfoId}
+    </select>
     <!--<update id="updatePassword">-->
     <!--update sys_user set password=#{password} where user_id=#{userId}-->
     <!--</update>-->

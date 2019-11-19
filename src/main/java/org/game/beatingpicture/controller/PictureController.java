@@ -25,6 +25,19 @@ public class PictureController {
     @Autowired
     private UserService userService;
     /*
+     * 查询卡片详情
+     * */
+    @RequestMapping("/getPictureDetail")
+    public ResponseEntity getPictureDetail(Integer id) {
+        if (id == null){
+            ResponseEntity.status(500);
+        }
+        Picture picture = pictureService.getPictureById(id);
+        return ResponseEntity.ok(picture);
+    }
+
+
+    /*
      * 获取拥有的卡片信息（除了上阵的）
      * */
     @RequestMapping("/getAllPictureByUserInfoId")
